@@ -3,19 +3,13 @@ import '../../models/product.dart';
 
 import '../widgets/appicon.dart';
 
-class ProductDetailScreen extends StatefulWidget {
+class ProductDetailScreen extends StatelessWidget {
   static const routeName = "/detail_product";
-  // final Product product;
+  final Product product;
   const ProductDetailScreen(
-      //  this.product,
-      {
+    this.product, {
     super.key,
   });
-  @override
-  State<ProductDetailScreen> createState() => _ProductDetailScreen();
-}
-
-class _ProductDetailScreen extends State<ProductDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,8 +25,7 @@ class _ProductDetailScreen extends State<ProductDetailScreen> {
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: AssetImage(
-                            "assets/images/food/salad_rau_cu.jfif"))),
+                        image: NetworkImage(product.imageUrl))),
               )),
           Positioned(
               top: 70,
@@ -69,12 +62,12 @@ class _ProductDetailScreen extends State<ProductDetailScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Salad Rau củ',
+                        Text(product.title,
                             style: TextStyle(
                               fontSize: 25,
                               fontWeight: FontWeight.w700,
                             )),
-                        Text('65.000đ',
+                        Text(product.price.toString() + "00 VNĐ",
                             style: TextStyle(
                               fontSize: 20,
                               color: Colors.red,
@@ -156,8 +149,7 @@ class _ProductDetailScreen extends State<ProductDetailScreen> {
                         SizedBox(
                           height: 18,
                         ),
-                        Text(
-                            'Salad trộn dầu giấm là món ăn mà bạn có thể nghĩ ngay đến đầu tiên, vì dễ chế biến với các loại rau củ, nguyên liệu dễ tìm. Món ăn này có màu sắc bắt mắt, tươi mát, khi ăn các loại rau quả tươi ngon, giòn giòn, hòa quyện cùng nước sốt dầu giấm chua cay và ngọt hấp dẫn.',
+                        Text(product.description,
                             style: TextStyle(fontSize: 15)),
                       ],
                     )

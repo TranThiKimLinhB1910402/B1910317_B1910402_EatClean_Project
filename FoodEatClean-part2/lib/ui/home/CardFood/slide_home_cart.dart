@@ -1,3 +1,4 @@
+import 'package:eatcleanproject/models/product.dart';
 import 'package:flutter/material.dart';
 import 'package:eatcleanproject/ui/widgets/big_text.dart';
 import 'package:eatcleanproject/ui/widgets/icon_and_text.dart';
@@ -14,20 +15,15 @@ import 'package:eatcleanproject/ui/colors.dart';
 
 // class _HomePageState extends State<HomePage> {
 class SlideHomeCart extends StatelessWidget {
-  final String title;
-  final String image;
-  const SlideHomeCart({
-    Key? key,
-    required this.title,
-    required this.image,
-  }) : super(key: key);
+  final Product product;
+  const SlideHomeCart(this.product, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         GestureDetector(
-          onTap : (){
+          onTap: () {
             print('list-type');
           },
           child: Container(
@@ -36,8 +32,7 @@ class SlideHomeCart extends StatelessWidget {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage(image))),
+                    fit: BoxFit.cover, image: NetworkImage(product.imageUrl))),
           ),
         ),
         Align(
@@ -60,7 +55,7 @@ class SlideHomeCart extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       BigText(
-                        text: title,
+                        text: product.title,
                         size: 15,
                       ),
                       SizedBox(

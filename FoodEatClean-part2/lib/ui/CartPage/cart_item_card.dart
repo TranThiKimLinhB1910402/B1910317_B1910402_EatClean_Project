@@ -2,15 +2,14 @@ import 'package:eatcleanproject/models/product.dart';
 import 'package:eatcleanproject/ui/DetailsProduct/details_product_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:eatcleanproject/ui/colors.dart';
-
 import 'package:eatcleanproject/ui/widgets/big_text.dart';
 import 'package:eatcleanproject/ui/widgets/icon_and_text.dart';
 import 'package:eatcleanproject/ui/widgets/small_text.dart';
 import 'package:eatcleanproject/ui/Products/Manager/product_manager.dart';
 
-class CartProduct extends StatelessWidget {
+class CartItemCard extends StatelessWidget {
   final Product product;
-  const CartProduct(
+  const CartItemCard(
     this.product, {
     super.key,
   });
@@ -23,7 +22,7 @@ class CartProduct extends StatelessWidget {
             .pushNamed(ProductDetailScreen.routeName, arguments: product.id);
       },
       child: Container(
-        child: Row(
+        child: Column(
           children: [
             Container(
               child: (Row(
@@ -35,7 +34,8 @@ class CartProduct extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       image: DecorationImage(
-                          image: NetworkImage(product.imageUrl), fit: BoxFit.cover),
+                          image: NetworkImage(product.imageUrl),
+                          fit: BoxFit.cover),
                     ),
                   ),
                   Container(
@@ -72,48 +72,11 @@ class CartProduct extends StatelessWidget {
                             size: 15,
                           ),
                           SizedBox(
-                            height: 3,
+                            height: 5,
                           ),
-                          SmallText(text: product.type),
-                          SizedBox(
-                            height: 2,
-                          ),
-                          Row(
-                            children: [
-                              Wrap(
-                                children: List.generate(
-                                    5,
-                                    (index) => Icon(
-                                          Icons.star,
-                                          color: AppColors.mainColor,
-                                          size: 12,
-                                        )),
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              SmallText(text: "4.5"),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              SmallText(text: "127"),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              SmallText(text: "Comments")
-                            ],
-                          ),
-                          SizedBox(
-                            height: 3,
-                          ),
-                          Row(
-                            children: [
-                              IconAndText(
-                                  icon: Icons.access_time_rounded,
-                                  size: 15,
-                                  text: "27 days",
-                                  iconColor: AppColors.iconColor2)
-                            ],
+                          Text(
+                            '50.000',
+                            style: TextStyle(color: Colors.red),
                           )
                         ]),
                   )
@@ -126,4 +89,3 @@ class CartProduct extends StatelessWidget {
     );
   }
 }
-

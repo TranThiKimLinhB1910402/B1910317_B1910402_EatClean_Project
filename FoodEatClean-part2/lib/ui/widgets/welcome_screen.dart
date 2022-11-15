@@ -1,4 +1,5 @@
 import 'package:eatcleanproject/ui/CartPage/cart_screen.dart';
+import 'package:eatcleanproject/ui/products/products_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -21,7 +22,7 @@ class _WelcomeScreen extends State<WelcomeScreen> {
   int _selectedIndex = 0;
   List pages = [
     HomePage(),
-    Container(color: Colors.black),
+    ProductsPage(),
     CartScreen(),
     SignInPage(),
   ];

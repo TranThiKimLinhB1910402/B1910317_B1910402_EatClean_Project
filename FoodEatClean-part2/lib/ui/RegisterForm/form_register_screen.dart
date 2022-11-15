@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:eatcleanproject/ui/colors.dart';
 import '../RegisterForm/register_input.dart';
-import '../appicon.dart';
+import '../widgets/appicon.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class RegisterPage extends StatefulWidget {

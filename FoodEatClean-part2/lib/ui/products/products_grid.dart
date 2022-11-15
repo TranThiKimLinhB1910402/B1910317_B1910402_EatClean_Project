@@ -1,7 +1,8 @@
+import 'package:eatcleanproject/ui/home/CardFood/cart_product.dart';
+import 'package:eatcleanproject/ui/products/Manager/product_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:eatcleanproject/ui/widgets/category_list.dart';
 import 'package:eatcleanproject/ui/colors.dart';
-import 'package:eatcleanproject/ui/products/products_list.dart';
 import 'package:eatcleanproject/ui/colors.dart';
 import 'package:eatcleanproject/ui/widgets/big_text.dart';
 import 'package:eatcleanproject/ui/widgets/icon_and_text.dart';
@@ -15,6 +16,7 @@ class ProductsGrid extends StatefulWidget {
 }
 
 class _ProductsGridState extends State<ProductsGrid> {
+  final products = ProductManager().items;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -52,7 +54,13 @@ class _ProductsGridState extends State<ProductsGrid> {
                         ],
                       ),
                     )),
-                ProductsList()
+                ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    itemCount: 4,
+                    itemBuilder: (context, index) =>
+                        CartProduct(products[index]))
               ],
             ),
           ));

@@ -1,10 +1,12 @@
+import 'package:eatcleanproject/ui/home/CardFood/slide_home_cart.dart';
+import 'package:eatcleanproject/ui/products/Manager/product_manager.dart';
 import 'package:flutter/material.dart';
 import '../widgets/big_text.dart';
 import '../widgets/small_text.dart';
 import '../widgets/icon_and_text.dart';
 import '../colors.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:eatcleanproject/ui/Home/CardFood/slide_home_cart.dart';
+import "package:eatcleanproject/ui/home/CardFood/slide_home_cart.dart";
 
 class HomePageItem extends StatefulWidget {
   const HomePageItem({super.key});
@@ -49,6 +51,7 @@ class _HomePageItemState extends State<HomePageItem> {
   }
 
   Widget _buildPageItem(int index) {
+    final products = ProductManager().items;
     Matrix4 matrix = new Matrix4.identity();
     //Scale Page index current
     if (index == _currPageValue.floor()) {
@@ -81,10 +84,7 @@ class _HomePageItemState extends State<HomePageItem> {
 
     return Transform(
       transform: matrix,
-      child: SlideHomeCart(
-        title: "Salad Vegetable Fisg",
-        image: 'assets/images/banner/banner2.jpg'
-      ),
+      child: SlideHomeCart(products[index]),
     );
   }
 }

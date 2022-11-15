@@ -1,4 +1,5 @@
 import 'package:eatcleanproject/ui/widgets/appicon.dart';
+import 'package:eatcleanproject/ui/widgets/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:eatcleanproject/ui/widgets/big_text.dart';
 import 'package:eatcleanproject/ui/widgets/small_text.dart';
@@ -54,7 +55,10 @@ class AppBarProducts extends StatelessWidget {
                   padding: new EdgeInsets.only(left: 20),
                   icon: new Icon(Icons.search, size: 25.0),
                   onPressed: () {
-                    Navigator.pop(context);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => WelcomeScreen()));
                   },
                   color: AppColors.mainColor,
                 )

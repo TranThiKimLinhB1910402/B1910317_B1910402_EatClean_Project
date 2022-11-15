@@ -7,7 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:eatcleanproject/ui/colors.dart';
 import 'form_register_screen.dart';
 import '../RegisterForm/register_input.dart';
-import '../appicon.dart';
+import '../widgets/appicon.dart';
 
 class SignInPage extends StatefulWidget {
   static const routeName = '/signinpage';
@@ -87,9 +87,8 @@ class _SignInPage extends State<SignInPage> {
                           child: Container(
                             padding: EdgeInsets.all(12),
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
-                                
-                                ),
+                              borderRadius: BorderRadius.circular(30),
+                            ),
                             child: Text(
                               'Đăng Nhập',
                               style: TextStyle(fontSize: 20),

@@ -88,12 +88,12 @@ class _HomeBodyPageState extends State<HomeBodyPage> {
         ),
 
         Container(
-          height: 1000,
+          height: 880,
           child: ListView.builder(
               physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               scrollDirection: Axis.vertical,
-              itemCount: products.length,
+              itemCount: 6,
               itemBuilder: (context, index) => CartProduct(products[index])),
         )
       ],
