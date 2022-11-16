@@ -1,0 +1,16 @@
+POST https://eatclean-aa52a-default-rtdb.firebaseio.com/
+Content-Type: application/json
+
+{
+    [
+        "id": "p1",
+        "title": "Salad hoa quả",
+        "type": "Salad",
+        "description":
+            "Salad trái cây là món ăn tươi mát, giúp chúng ta khỏe đẹp mỗi ngày trong khi công thức làm lại vô cùng đơn giản. Ngoài ra, món ăn từ trái cây này còn rất được ưa chuộng để giảm cân, thanh lọc cơ thể, bổ bổ sức khỏe. Sau đây, TASTY Kitchen sẽ giới thiệu bạn",
+        "price": 40.000,
+        "imageUrl":
+            "https://img.tastykitchen.vn/resize/764x-/2021/05/31/trai-cay-cung-cap-nguon-dinh-duong-doi-dao-tuoi-ma-861d.jpg",
+        
+    ]
+}
