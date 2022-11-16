@@ -46,7 +46,7 @@ Future<void> showErrorDialog(BuildContext context, String message) {
       content: Text(message),
       actions: <Widget>[
         TextButton(
-          child: const Text('Oki'),
+          child: const Text('Ok'),
           onPressed: () {
             Navigator.of(ctx).pop();
           },

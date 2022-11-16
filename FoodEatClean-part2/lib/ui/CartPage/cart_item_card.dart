@@ -10,6 +10,7 @@ import 'package:eatcleanproject/ui/widgets/icon_and_text.dart';
 import 'package:eatcleanproject/ui/widgets/small_text.dart';
 import 'package:eatcleanproject/ui/Products/Manager/product_manager.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 class CartItemCard extends StatefulWidget {
   final String productId;
@@ -28,21 +29,26 @@ class _CartItemCardState extends State<CartItemCard> {
   int _currCounter = 0;
   @override
   Widget build(BuildContext context) {
-    return Dismissible(
-      key: ValueKey(widget.cartItem.id),
-      direction: DismissDirection.endToStart,
-      confirmDismiss: ((direction) {
-        return showConfirmDialog(context,
-            'Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng chứ?');
-      }),
-      onDismissed: (direction) {
-        print('Delete');
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).pushNamed(ProductDetailScreen.routeName,
+            arguments: widget.productId);
       },
-      child: Column(
-        children: [
-          _buildItemCard(),
-          
-        ],
+      child: Dismissible(
+        key: ValueKey(widget.cartItem.id),
+        direction: DismissDirection.endToStart,
+        confirmDismiss: ((direction) {
+          return showConfirmDialog(context,
+              'Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng chứ?');
+        }),
+        onDismissed: (direction) {
+          context.read<CartManager>().removeItem(widget.productId);
+        },
+        child: Column(
+          children: [
+            _buildItemCard(),
+          ],
+        ),
       ),
     );
   }

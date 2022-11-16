@@ -13,12 +13,13 @@ class CartManager with ChangeNotifier {
             'https://img.tastykitchen.vn/resize/764x-/2021/05/31/trai-cay-cung-cap-nguon-dinh-duong-doi-dao-tuoi-ma-861d.jpg',
         quantity: 2),
     'p2': CartItem(
-        id: 'c2',
-        title: 'Rau củ',
-        price: 40.000,
-        imageUrl:
-            'https://img.tastykitchen.vn/resize/764x-/2021/05/31/trai-cay-cung-cap-nguon-dinh-duong-doi-dao-tuoi-ma-861d.jpg',
-        quantity: 2)
+      id: 'c2',
+      title: 'Cá hồi rán',
+      price: 40.000,
+      quantity: 2,
+      imageUrl:
+          'https://cdn2.tieudungplus.vn/media/uploaded/26/2018/06/08/thuc-don-an-kieng-eat-clean-tieudungplus-5-tieudungplus-1528455450.jpg',
+    ),
   };
 
   int get productCount {
@@ -41,32 +42,33 @@ class CartManager with ChangeNotifier {
     return total;
   }
 
-  // void addItem(Product product) {
-  //   if (_items.containsKey(product.id)) {
-  //     // thay doi gia tri
-  //     _items.update(
-  //         product.id!,
-  //         (existingCartItem) => existingCartItem.copyWith(
-  //               quantity: existingCartItem.quantity + 1,
-  //             ));
-  //   } else {
-  //     _items.putIfAbsent(
-  //       product.id!,
-  //       () => CartItem(
-  //         id: 'c${DateTime.now().toIso8601String()}',
-  //         title: product.title,
-  //         price: product.price,
-  //         quantity: 1,
-  //       ),
-  //     );
-  //   }
-  //   notifyListeners();
-  // }
+  void addItem(Product product) {
+    if (_items.containsKey(product.id)) {
+      // thay doi gia tri
+      _items.update(
+          product.id!,
+          (existingCartItem) => existingCartItem.copyWith(
+                quantity: existingCartItem.quantity + 1,
+              ));
+    } else {
+      _items.putIfAbsent(
+        product.id!,
+        () => CartItem(
+          id: 'c${DateTime.now().toIso8601String()}',
+          title: product.title,
+          price: product.price,
+          imageUrl: product.imageUrl,
+          quantity: 1,
+        ),
+      );
+    }
+    notifyListeners();
+  }
 
-  // void removeItem(String productId) {
-  //   _items.remove(productId);
-  //   notifyListeners();
-  // }
+  void removeItem(String productId) {
+    _items.remove(productId);
+    notifyListeners();
+  }
 
   // void removeSingleItem(String productId) {
   //   if (!_items.containsKey(productId)) {

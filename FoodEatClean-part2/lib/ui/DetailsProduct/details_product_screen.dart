@@ -1,7 +1,10 @@
+import 'package:eatcleanproject/ui/CartPage/cart_manager.dart';
+import 'package:eatcleanproject/ui/CartPage/cart_screen.dart';
 import 'package:flutter/material.dart';
 import '../../models/product.dart';
 
 import '../widgets/appicon.dart';
+import 'package:provider/provider.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   static const routeName = "/detail_product";
@@ -41,7 +44,10 @@ class ProductDetailScreen extends StatelessWidget {
                       child: AppIcon(icon: Icons.arrow_back)),
                   TextButton(
                       onPressed: () {
-                        print('buy');
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CartScreen()));
                       },
                       child: AppIcon(icon: Icons.shopping_cart_outlined)),
                 ],
@@ -213,7 +219,8 @@ class ProductDetailScreen extends StatelessWidget {
                 children: [
                   TextButton(
                       onPressed: () {
-                        print('Buy');
+                        final cart = context.read<CartManager>();
+                        cart.addItem(product);
                       },
                       child: Text('THÊM VÀO GIỎ HÀNG',
                           style: TextStyle(

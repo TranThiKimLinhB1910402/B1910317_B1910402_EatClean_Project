@@ -5,6 +5,7 @@ import 'package:eatcleanproject/ui/products/Manager/product_manager.dart';
 import 'package:eatcleanproject/ui/screen.dart';
 import 'package:eatcleanproject/ui/widgets/big_text.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -14,9 +15,9 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  final cart = CartManager();
   @override
   Widget build(BuildContext context) {
+    final cart = context.watch<CartManager>();
     return Scaffold(
       body: Column(children: [
         AppBarCart(),
