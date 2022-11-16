@@ -1,5 +1,6 @@
 import 'package:eatcleanproject/ui/CartPage/cart_screen.dart';
 import 'package:eatcleanproject/ui/products/products_screen.dart';
+import 'package:eatcleanproject/ui/screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -23,8 +24,7 @@ class _WelcomeScreen extends State<WelcomeScreen> {
   List pages = [
     HomePage(),
     ProductsPage(),
-    CartScreen(),
-    SignInPage(),
+    AuthScreen(),
   ];
 
   @override
@@ -56,10 +56,10 @@ class _WelcomeScreen extends State<WelcomeScreen> {
             icon: FaIcon(FontAwesomeIcons.comment, size: 20),
             label: 'Chat',
           ),
-          BottomNavigationBarItem(
-            icon: FaIcon(FontAwesomeIcons.cartShopping, size: 20),
-            label: 'Giỏ hàng',
-          ),
+          // BottomNavigationBarItem(
+          //   icon: FaIcon(FontAwesomeIcons.cartShopping, size: 20),
+          //   label: 'Giỏ hàng',
+          // ),
           BottomNavigationBarItem(
             icon: FaIcon(FontAwesomeIcons.user, size: 20),
             label: 'Tài khoản',

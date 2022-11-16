@@ -35,7 +35,8 @@ class CartProduct extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       image: DecorationImage(
-                          image: NetworkImage(product.imageUrl), fit: BoxFit.cover),
+                          image: NetworkImage(product.imageUrl),
+                          fit: BoxFit.cover),
                     ),
                   ),
                   Container(
@@ -106,15 +107,11 @@ class CartProduct extends StatelessWidget {
                           SizedBox(
                             height: 3,
                           ),
-                          Row(
-                            children: [
-                              IconAndText(
-                                  icon: Icons.access_time_rounded,
-                                  size: 15,
-                                  text: "27 days",
-                                  iconColor: AppColors.iconColor2)
-                            ],
-                          )
+                          IconAndText(
+                              icon: Icons.access_time_rounded,
+                              size: 15,
+                              text: "27 days",
+                              iconColor: AppColors.iconColor2)
                         ]),
                   )
                 ],
@@ -126,4 +123,3 @@ class CartProduct extends StatelessWidget {
     );
   }
 }
-

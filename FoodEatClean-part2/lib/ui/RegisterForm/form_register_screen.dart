@@ -41,7 +41,7 @@ class _RegisterPage extends State<RegisterPage> {
                   left: 10,
                   child: TextButton(
                       onPressed: () {
-                        Navigator.of(context);
+                        Navigator.pop(context);
                       },
                       child: AppIcon(icon: Icons.arrow_back)),
                 )

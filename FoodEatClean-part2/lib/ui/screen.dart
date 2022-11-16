@@ -24,3 +24,7 @@ export '../ui/RegisterForm/form_register_screen.dart';
 export '../ui/RegisterForm/form_signin_screen.dart';
 export 'package:eatcleanproject/ui/home/home_screen.dart';
 export '/ui/products/Manager/product_manager.dart';
+
+export 'auth/auth_screen.dart';
+export 'auth/auth_manager.dart';
+export 'splash_screen.dart';

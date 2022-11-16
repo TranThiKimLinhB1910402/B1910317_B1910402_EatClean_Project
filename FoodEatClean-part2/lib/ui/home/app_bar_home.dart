@@ -1,8 +1,10 @@
+import 'package:eatcleanproject/ui/CartPage/cart_screen.dart';
 import 'package:eatcleanproject/ui/widgets/appicon.dart';
 import 'package:flutter/material.dart';
 import 'package:eatcleanproject/ui/widgets/big_text.dart';
 import 'package:eatcleanproject/ui/widgets/small_text.dart';
 import 'package:eatcleanproject/ui/colors.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AppBarHome extends StatelessWidget {
   const AppBarHome({super.key});
@@ -27,7 +29,7 @@ class AppBarHome extends StatelessWidget {
           ),
           Container(
             height: 50,
-            width: 250,
+            width: 200,
             decoration: BoxDecoration(
               border: Border.all(
                 color: Colors.grey.withOpacity(0.5),
@@ -39,7 +41,7 @@ class AppBarHome extends StatelessWidget {
               children: [
                 Container(
                   height: 50,
-                  width: 200,
+                  width: 150,
                   padding: EdgeInsets.only(left: 10),
                   child: TextField(
                     decoration: InputDecoration(border: InputBorder.none),
@@ -55,7 +57,15 @@ class AppBarHome extends StatelessWidget {
                 )
               ],
             ),
-          )
+          ),
+          IconButton(
+              constraints: BoxConstraints(maxWidth: 20),
+              onPressed: () {
+                 Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => CartScreen()));
+              },
+              color: AppColors.mainColor,
+              icon: FaIcon(FontAwesomeIcons.cartShopping, size: 18)),
         ],
       ),
     );

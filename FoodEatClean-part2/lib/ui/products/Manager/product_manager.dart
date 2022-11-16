@@ -1,7 +1,7 @@
 import '../../../models/product.dart';
 import 'package:flutter/foundation.dart';
 
-class ProductManager {
+class ProductManager with ChangeNotifier {
   final List<Product> _items = [
     Product(
         id: 'p1',
@@ -56,17 +56,27 @@ class ProductManager {
     Product(
         id: 'p6',
         title: 'Salad hoa quả',
-        type: 'Salad',
+        type: 'Rán',
         description:
             "Salad trái cây là món ăn tươi mát, giúp chúng ta khỏe đẹp mỗi ngày trong khi công thức làm lại vô cùng đơn giản. Ngoài ra, món ăn từ trái cây này còn rất được ưa chuộng để giảm cân, thanh lọc cơ thể, bổ bổ sức khỏe. Sau đây, TASTY Kitchen sẽ giới thiệu bạn",
         price: 40.000,
         imageUrl:
-            'https://www.thethaothientruong.vn/uploads/2021/eat-clean-la-gi.jpg',
+            'https://images.immediate.co.uk/production/volatile/sites/30/2014/05/Epic-summer-salad-hub-2646e6e.jpg',
         isFavorite: true),
     Product(
         id: 'p7',
         title: 'Cá hồi rán',
-        type: 'Rán',
+        type: 'Súp',
+        description:
+            "150g cá hồi ướp muối, lá húng tây khô áp chảo, 1 bông cải xanh 200gr xào với 1 chén con mỳ ý (mỳ luộc trước xào).",
+        price: 40.000,
+        imageUrl:
+            'https://www.trifectanutrition.com/hubfs/clean-eating-food-list-eat-clean-acai-smoothie-bowl.jpg',
+        isFavorite: true),
+    Product(
+        id: 'p8',
+        title: 'Cá hồi rán',
+        type: 'Hạt',
         description:
             "150g cá hồi ướp muối, lá húng tây khô áp chảo, 1 bông cải xanh 200gr xào với 1 chén con mỳ ý (mỳ luộc trước xào).",
         price: 40.000,
@@ -87,8 +97,8 @@ class ProductManager {
     return _items.where((favItems) => favItems.isFavorite).toList();
   }
 
-  List<Product> get SaladItems {
-    return _items.where((saladItem) => saladItem.type == 'Salad').toList();
+  List<Product> getSaladItems(String type) {
+    return _items.where((saladItem) => saladItem.type == type).toList();
   }
 
   Product findById(String productId) {

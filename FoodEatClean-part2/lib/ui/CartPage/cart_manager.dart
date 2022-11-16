@@ -5,7 +5,20 @@ import '../../models/cart_item.dart';
 
 class CartManager with ChangeNotifier {
   Map<String, CartItem> _items = {
-    'p1': CartItem(id: 'c1', title: 'Red Shirt', price: 29.99, quantity: 2),
+    'p1': CartItem(
+        id: 'c1',
+        title: 'Salad hoa quả',
+        price: 40.000,
+        imageUrl:
+            'https://img.tastykitchen.vn/resize/764x-/2021/05/31/trai-cay-cung-cap-nguon-dinh-duong-doi-dao-tuoi-ma-861d.jpg',
+        quantity: 2),
+    'p2': CartItem(
+        id: 'c2',
+        title: 'Rau củ',
+        price: 40.000,
+        imageUrl:
+            'https://img.tastykitchen.vn/resize/764x-/2021/05/31/trai-cay-cung-cap-nguon-dinh-duong-doi-dao-tuoi-ma-861d.jpg',
+        quantity: 2)
   };
 
   int get productCount {
@@ -28,53 +41,53 @@ class CartManager with ChangeNotifier {
     return total;
   }
 
-  void addItem(Product product) {
-    if (_items.containsKey(product.id)) {
-      // thay doi gia tri
-      _items.update(
-          product.id!,
-          (existingCartItem) => existingCartItem.copyWith(
-                quantity: existingCartItem.quantity + 1,
-              ));
-    } else {
-      _items.putIfAbsent(
-        product.id!,
-        () => CartItem(
-          id: 'c${DateTime.now().toIso8601String()}',
-          title: product.title,
-          price: product.price,
-          quantity: 1,
-        ),
-      );
-    }
-    notifyListeners();
-  }
+  // void addItem(Product product) {
+  //   if (_items.containsKey(product.id)) {
+  //     // thay doi gia tri
+  //     _items.update(
+  //         product.id!,
+  //         (existingCartItem) => existingCartItem.copyWith(
+  //               quantity: existingCartItem.quantity + 1,
+  //             ));
+  //   } else {
+  //     _items.putIfAbsent(
+  //       product.id!,
+  //       () => CartItem(
+  //         id: 'c${DateTime.now().toIso8601String()}',
+  //         title: product.title,
+  //         price: product.price,
+  //         quantity: 1,
+  //       ),
+  //     );
+  //   }
+  //   notifyListeners();
+  // }
 
-  void removeItem(String productId) {
-    _items.remove(productId);
-    notifyListeners();
-  }
+  // void removeItem(String productId) {
+  //   _items.remove(productId);
+  //   notifyListeners();
+  // }
 
-  void removeSingleItem(String productId) {
-    if (!_items.containsKey(productId)) {
-      return;
-    }
-    if (_items[productId]?.quantity as num > 1) {
-      _items.update(
-          productId,
-          (existingCartItem) => existingCartItem.copyWith(
-                quantity: existingCartItem.quantity - 1,
-          )
-        );
-    }
-    else{
-      _items.remove(productId);
-    }
-    notifyListeners();
-  }
+  // void removeSingleItem(String productId) {
+  //   if (!_items.containsKey(productId)) {
+  //     return;
+  //   }
+  //   if (_items[productId]?.quantity as num > 1) {
+  //     _items.update(
+  //         productId,
+  //         (existingCartItem) => existingCartItem.copyWith(
+  //               quantity: existingCartItem.quantity - 1,
+  //         )
+  //       );
+  //   }
+  //   else{
+  //     _items.remove(productId);
+  //   }
+  //   notifyListeners();
+  // }
 
-  void clear(){
-    _items = {};
-    notifyListeners();
-  }
+  // void clear(){
+  //   _items = {};
+  //   notifyListeners();
+  // }
 }

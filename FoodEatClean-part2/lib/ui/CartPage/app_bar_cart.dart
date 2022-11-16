@@ -29,21 +29,6 @@ class AppBarCart extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // Container(
-          //     height: 40,
-          //     width: 40,
-          //     decoration: BoxDecoration(
-          //       borderRadius: BorderRadius.circular(50),
-          //       color: Color.fromARGB(255, 239, 238, 238),
-          //     ),
-          //     child: IconButton(
-          //       padding: new EdgeInsets.all(0.0),
-          //       icon: new Icon(Icons.arrow_back, size: 18.0),
-          //       onPressed: () {
-          //         Navigator.pop(context);
-          //       },
-          //       color: Color(0xFF756d54),
-          //     )),
           IconButton(
             icon: new Icon(Icons.arrow_back, size: 25.0),
             onPressed: () {
