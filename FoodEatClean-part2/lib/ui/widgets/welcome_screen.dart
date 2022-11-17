@@ -1,17 +1,9 @@
-import 'package:eatcleanproject/ui/CartPage/cart_screen.dart';
-import 'package:eatcleanproject/ui/products/products_screen.dart';
+import 'package:eatcleanproject/ui/auth/auth_info.dart';
 import 'package:eatcleanproject/ui/screen.dart';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-import 'package:eatcleanproject/ui/colors.dart';
-
-import 'package:eatcleanproject/ui/home/home_screen.dart';
-import 'package:eatcleanproject/ui/home/home_page_item.dart';
-
-import 'package:eatcleanproject/ui/home/home_screen_body.dart';
-import 'package:eatcleanproject/ui/RegisterForm/form_register_screen.dart';
-import 'package:eatcleanproject/ui/RegisterForm/form_signin_screen.dart';
+import 'package:bottom_bar/bottom_bar.dart';
 
 class WelcomeScreen extends StatefulWidget {
   @override
@@ -20,50 +12,50 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreen extends State<WelcomeScreen> {
-  int _selectedIndex = 0;
-  List pages = [
-    HomePage(),
-    ProductsPage(),
-    AuthScreen(),
-  ];
+  int _currentPage = 0;
+  final _pageController = PageController();
+  List pages = [];
 
   @override
   void onTapped(int index) {
     setState(() {
-      _selectedIndex = index;
+      _currentPage = index;
     });
   }
 
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: pages[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        // showSelectedLabels: false,
-        showUnselectedLabels: false,
-        unselectedIconTheme: IconThemeData(color: Colors.amber[200]),
-        selectedIconTheme: IconThemeData(color: AppColors.mainColor),
-        fixedColor: Colors.green[600],
-        currentIndex: _selectedIndex,
-        onTap: onTapped,
-        items: [
-          BottomNavigationBarItem(
-            icon: FaIcon(FontAwesomeIcons.house, size: 20),
-            label: 'Trang chủ',
+      body: PageView(
+        controller: _pageController,
+        children: [HomePage(), ProductsPage(), AuthInfo()],
+        onPageChanged: (index) {
+          // Use a better state management solution
+          // setState is used for simplicity
+          setState(() => _currentPage = index);
+        },
+      ),
+      bottomNavigationBar: BottomBar(
+        selectedIndex: _currentPage,
+        onTap: (int index) {
+          _pageController.jumpToPage(index);
+          setState(() => _currentPage = index);
+        },
+        items: <BottomBarItem>[
+          BottomBarItem(
+            icon: Icon(Icons.home),
+            title: Text('Trang chủ'),
+            activeColor: Colors.blue,
           ),
-          BottomNavigationBarItem(
-            icon: FaIcon(FontAwesomeIcons.comment, size: 20),
-            label: 'Chat',
+          BottomBarItem(
+            icon: Icon(Icons.search),
+            title: Text('Tìm kiếm'),
+            activeColor: Colors.red,
           ),
-          // BottomNavigationBarItem(
-          //   icon: FaIcon(FontAwesomeIcons.cartShopping, size: 20),
-          //   label: 'Giỏ hàng',
-          // ),
-          BottomNavigationBarItem(
-            icon: FaIcon(FontAwesomeIcons.user, size: 20),
-            label: 'Tài khoản',
-          ),
+          BottomBarItem(
+            icon: Icon(Icons.person),
+            title: Text('Tài khoản'),
+            activeColor: Colors.greenAccent.shade700,
+          )
         ],
       ),
     );

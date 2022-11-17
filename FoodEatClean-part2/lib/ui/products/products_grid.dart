@@ -84,7 +84,6 @@ class ListTypeProduct extends StatelessWidget {
         itemCount: 4,
         itemBuilder: (context, add) {
           products.forEach((e) => {
-            print(e.type),
                 if (e.type.compareTo(typeProduct.tenloai) == 0)
                   {listproduct.add(e)}
               });

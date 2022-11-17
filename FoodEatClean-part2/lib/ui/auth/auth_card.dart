@@ -1,5 +1,7 @@
+import 'package:eatcleanproject/ui/screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../models/http_exception.dart';
 import '../shared/dialog_utils.dart';
@@ -20,10 +22,12 @@ class AuthCard extends StatefulWidget {
 class _AuthCardState extends State<AuthCard> {
   final GlobalKey<FormState> _formKey = GlobalKey();
   AuthMode _authMode = AuthMode.login;
+  bool passenable = true;
   final Map<String, String> _authData = {
     'email': '',
     'password': '',
   };
+
   final _isSubmitting = ValueNotifier<bool>(false);
   final _passwordController = TextEditingController();
 
@@ -75,20 +79,13 @@ class _AuthCardState extends State<AuthCard> {
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      elevation: 8.0,
+    return SingleChildScrollView(
       child: Container(
-        height: _authMode == AuthMode.signup ? 320 : 260,
-        constraints:
-            BoxConstraints(minHeight: _authMode == AuthMode.signup ? 320 : 260),
+        height: _authMode == AuthMode.signup ? 480 : 340,
         width: deviceSize.width * 0.75,
-        padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
-          child: SingleChildScrollView(
+          child: Container(
             child: Column(
               children: <Widget>[
                 _buildEmailField(),
@@ -119,14 +116,14 @@ class _AuthCardState extends State<AuthCard> {
     return TextButton(
       onPressed: _switchAuthMode,
       style: TextButton.styleFrom(
-        // padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 4),
+        padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 4),
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         textStyle: TextStyle(
           color: Colors.black,
         ),
       ),
-      child:
-          Text('${_authMode == AuthMode.login ? 'SIGNUP' : 'LOGIN'} INSTEAD'),
+      child: Text(
+          '${_authMode == AuthMode.login ? 'Không có tài khoản: Đăng ký tại đây' : 'ĐĂNG NHẬP'}'),
     );
   }
 
@@ -134,28 +131,44 @@ class _AuthCardState extends State<AuthCard> {
     return ElevatedButton(
       onPressed: _submit,
       style: ElevatedButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30),
-        ),
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: AppColors.mainColor,
         padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 8.0),
         textStyle: TextStyle(
           color: Theme.of(context).primaryTextTheme.headline6?.color,
         ),
       ),
-      child: Text(_authMode == AuthMode.login ? 'LOGIN' : 'SIGN UP'),
+      child: Text(_authMode == AuthMode.login ? 'ĐĂNG NHẬP' : 'ĐĂNG KÝ'),
     );
   }
 
   Widget _buildPasswordConfirmField() {
     return TextFormField(
+      obscureText: passenable,
+      cursorHeight: 10,
       enabled: _authMode == AuthMode.signup,
-      decoration: const InputDecoration(labelText: 'Confirm Password'),
-      obscureText: true,
+      decoration: InputDecoration(
+          suffix: IconButton(
+              onPressed: () {
+                setState(() {
+                  if (passenable) {
+                    passenable = false;
+                  } else {
+                    passenable = true;
+                  }
+                });
+              },
+              icon: FaIcon(
+                passenable == true
+                    ? FontAwesomeIcons.eye
+                    : FontAwesomeIcons.eyeSlash,
+                size: 15,
+              )),
+          labelText: 'Xác thực mật khẩu',
+          prefixIcon: Icon(Icons.password_rounded)),
       validator: _authMode == AuthMode.signup
           ? (value) {
               if (value != _passwordController.text) {
-                return 'Passwords do not match!';
+                return 'Mật khẩu không trùng khớp';
               }
               return null;
             }
@@ -165,12 +178,30 @@ class _AuthCardState extends State<AuthCard> {
 
   Widget _buildPasswordField() {
     return TextFormField(
-      decoration: const InputDecoration(labelText: 'Password'),
-      obscureText: true,
+      decoration: InputDecoration(
+          suffix: IconButton(
+              onPressed: () {
+                setState(() {
+                  if (passenable) {
+                    passenable = false;
+                  } else {
+                    passenable = true;
+                  }
+                });
+              },
+              icon: FaIcon(
+                passenable == true
+                    ? FontAwesomeIcons.eye
+                    : FontAwesomeIcons.eyeSlash,
+                size: 15,
+              )),
+          labelText: 'Mật khẩu',
+          prefixIcon: Icon(Icons.password_rounded)),
+      obscureText: passenable,
       controller: _passwordController,
       validator: (value) {
         if (value == null || value.length < 5) {
-          return 'Password is too short!';
+          return 'Mật khẩu quá ngắn';
         }
         return null;
       },
@@ -182,11 +213,12 @@ class _AuthCardState extends State<AuthCard> {
 
   Widget _buildEmailField() {
     return TextFormField(
-      decoration: const InputDecoration(labelText: 'E-Mail'),
+      decoration: const InputDecoration(
+          labelText: 'E-Mail', prefixIcon: Icon(Icons.email)),
       keyboardType: TextInputType.emailAddress,
       validator: (value) {
         if (value!.isEmpty || !value.contains('@')) {
-          return 'Invalid email!';
+          return 'Email không tồn tại!';
         }
         return null;
       },

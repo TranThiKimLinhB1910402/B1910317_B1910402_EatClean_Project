@@ -14,12 +14,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   Widget build(BuildContext context) {
     return MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (context) => ProductManager()),
-          ChangeNotifierProvider(create: (context) => CartManager()),
-          ChangeNotifierProvider(create: (context) => AuthManager()),
-        ],
-        child: MaterialApp(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ProductManager()),
+        ChangeNotifierProvider(create: (context) => CartManager()),
+        ChangeNotifierProvider(create: (context) => AuthManager()),
+      ],
+      child: Consumer<AuthManager>(builder: (context, authManager, child) {
+        return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Eat Clean Hong',
             theme: ThemeData(
@@ -43,6 +44,16 @@ class MyApp extends StatelessWidget {
                 );
               }
             },
-            home: WelcomeScreen()));
+            home: authManager.isAuth
+                ? const WelcomeScreen()
+                : FutureBuilder(
+                    builder: (context, snapshot) {
+                      return snapshot.connectionState == ConnectionState.waiting
+                          ? const SplashScreen()
+                          : const WelcomeScreen();
+                    },
+                  ));
+      }),
+    );
   }
 }

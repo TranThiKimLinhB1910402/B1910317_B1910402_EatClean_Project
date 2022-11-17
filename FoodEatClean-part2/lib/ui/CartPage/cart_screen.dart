@@ -104,7 +104,7 @@ class _CartScreenState extends State<CartScreen> {
                     height: 10,
                   ),
                   Text(
-                    '200.000 vnđ',
+                    '200.0' + '00 VNĐ',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                   )
                 ],

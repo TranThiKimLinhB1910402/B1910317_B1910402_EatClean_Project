@@ -12,11 +12,11 @@ class AuthScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Stack(
         children: <Widget>[
           Container(
-            decoration: BoxDecoration(color: Colors.white),
-          ),
+              decoration: BoxDecoration(color: Colors.white), height: 600),
           SingleChildScrollView(
             child: SizedBox(
               height: deviceSize.height,

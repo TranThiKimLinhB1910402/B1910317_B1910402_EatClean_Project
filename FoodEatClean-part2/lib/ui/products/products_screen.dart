@@ -20,7 +20,6 @@ class _ProductsPageState extends State<ProductsPage> {
       body: Column(children: [
         AppBarProducts(),
         CategoryList(),
-        // Text('Linh'),
         Expanded(
             child: SingleChildScrollView(
           child: ProductsGrid(),

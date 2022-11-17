@@ -42,11 +42,6 @@ class AppBarCart extends StatelessWidget {
             size: 20,
             color: AppColors.mainColor,
           ),
-          // Text('Giỏ hàng',
-          //     style: TextStyle(
-          //         fontFamily: 'Poppins',
-          //         fontWeight: FontWeight.w500,
-          //         fontSize: 18)),
           Container(
               height: 40,
               width: 40,

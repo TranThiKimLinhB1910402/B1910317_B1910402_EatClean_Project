@@ -4,7 +4,6 @@ export 'widgets/small_text.dart';
 export 'widgets/icon_and_text.dart';
 export 'widgets/category_list.dart';
 
-
 export 'products/app_bar_products.dart';
 export 'products/products_grid.dart';
 export 'products/products_screen.dart';
@@ -18,7 +17,6 @@ export 'CartPage/cart_screen.dart';
 
 export 'orders/order_manager.dart';
 
-
 export '../ui/widgets/welcome_screen.dart';
 export '../ui/RegisterForm/form_register_screen.dart';
 export '../ui/RegisterForm/form_signin_screen.dart';
@@ -28,3 +26,5 @@ export '/ui/products/Manager/product_manager.dart';
 export 'auth/auth_screen.dart';
 export 'auth/auth_manager.dart';
 export 'splash_screen.dart';
+
+export 'colors.dart';

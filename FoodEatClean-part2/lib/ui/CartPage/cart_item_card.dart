@@ -105,7 +105,7 @@ class _CartItemCardState extends State<CartItemCard> {
                   height: 3,
                 ),
                 SmallText(
-                  text: '${widget.cartItem.price}',
+                  text: '${widget.cartItem.price}' + '00 VNĐ',
                   size: 15,
                   color: Colors.red,
                 ),
