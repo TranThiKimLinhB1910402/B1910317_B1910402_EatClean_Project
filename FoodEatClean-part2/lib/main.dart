@@ -21,38 +21,50 @@ class MyApp extends StatelessWidget {
       ],
       child: Consumer<AuthManager>(builder: (context, authManager, child) {
         return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'Eat Clean Hong',
-            theme: ThemeData(
-                scaffoldBackgroundColor: Colors.white,
-                textTheme: Theme.of(context)
-                    .textTheme
-                    .apply(displayColor: Colors.black)),
-            routes: {
-              RegisterPage.routeName: (ctx) => const RegisterPage(),
-              SignInPage.routeName: (ctx) => const SignInPage(),
-              RegisterPage.routeName: (ctx) => const RegisterPage(),
-            },
-            onGenerateRoute: (index) {
-              if (index.name == ProductDetailScreen.routeName) {
-                final productId = index.arguments as String;
-                return MaterialPageRoute(
-                  builder: (context) {
-                    return ProductDetailScreen(
-                        context.read<ProductManager>().findById(productId));
+          debugShowCheckedModeBanner: false,
+          title: 'Eat Clean Hong',
+          theme: ThemeData(
+              scaffoldBackgroundColor: Colors.white,
+              textTheme: Theme.of(context)
+                  .textTheme
+                  .apply(displayColor: Colors.black)),
+          routes: {
+            RegisterPage.routeName: (ctx) => const RegisterPage(),
+            SignInPage.routeName: (ctx) => const SignInPage(),
+            RegisterPage.routeName: (ctx) => const RegisterPage(),
+          },
+          home: authManager.isAuth
+              ? const WelcomeScreen()
+              : FutureBuilder(
+                  builder: (context, snapshot) {
+                    return snapshot.connectionState == ConnectionState.waiting
+                        ? const SplashScreen()
+                        : const WelcomeScreen();
                   },
+                ),
+          onGenerateRoute: (index) {
+            if (index.name == ProductDetailScreen.routeName) {
+              final productId = index.arguments as String;
+              return MaterialPageRoute(
+                builder: (context) {
+                  return ProductDetailScreen(
+                      context.read<ProductManager>().findById(productId));
+                },
+              );
+            }
+            if (index.name == EditProductScreen.routeName) {
+              final productId = index.arguments as String?;
+              return MaterialPageRoute(builder: (ctx) {
+                return EditProductScreen(
+                  productId != null
+                      ? ctx.read<ProductManager>().findById(productId)
+                      : null,
                 );
-              }
-            },
-            home: authManager.isAuth
-                ? const WelcomeScreen()
-                : FutureBuilder(
-                    builder: (context, snapshot) {
-                      return snapshot.connectionState == ConnectionState.waiting
-                          ? const SplashScreen()
-                          : const WelcomeScreen();
-                    },
-                  ));
+              });
+            }
+            return null;
+          },
+        );
       }),
     );
   }

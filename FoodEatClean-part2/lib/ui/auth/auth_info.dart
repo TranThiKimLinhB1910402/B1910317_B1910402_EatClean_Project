@@ -20,7 +20,7 @@ class _AuthInfoState extends State<AuthInfo> {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           home: authManager.isAuth
-              ? _buildLogout()
+              ? _buildLogout(authManager.authToken!.email)
               : FutureBuilder(
                   future: authManager.tryAutoLogin(),
                   builder: (context, snapshot) {
@@ -33,8 +33,8 @@ class _AuthInfoState extends State<AuthInfo> {
     );
   }
 
-  Widget _buildLogout() {
-    return Consumer(
+  Widget _buildLogout(auth) {
+    return Consumer<AuthManager>(
       builder: (context, user, child) {
         return Material(
           child: Padding(
@@ -55,7 +55,7 @@ class _AuthInfoState extends State<AuthInfo> {
                   ),
                 ),
                 Text(
-                  'Trần Kim Linh',
+                  auth,
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                 ),
                 SizedBox(
@@ -77,8 +77,15 @@ class _AuthInfoState extends State<AuthInfo> {
                               iconSize: 18,
                               shape: GFIconButtonShape.circle,
                             ),
+                            onTap: () {
+                              print('sbc');
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          EditProductScreen(null)));
+                            },
                             title: const Text('Đơn đặt hàng'),
-                            onTap: () {},
                           ),
                         ),
                       ),

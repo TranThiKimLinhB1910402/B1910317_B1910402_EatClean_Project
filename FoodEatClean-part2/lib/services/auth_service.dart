@@ -64,6 +64,7 @@ class AuthService {
 
   AuthToken _fromJson(Map<String, dynamic> json) {
     return AuthToken(
+      email: json['email'],
       token: json['idToken'],
       userId: json['localId'],
       expiryDate: DateTime.now().add(

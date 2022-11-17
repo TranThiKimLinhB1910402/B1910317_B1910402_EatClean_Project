@@ -14,6 +14,28 @@ class Product {
       required this.price,
       required this.imageUrl,
       this.isFavorite = false});
+ Map<String, dynamic> toJson() {
+    return {
+      'title': title,
+      'description': description,
+      'price': price,
+      'imageUrl': imageUrl,
+      'type': type,
+      'isFavorite': isFavorite
+    };
+  }
+
+  static Product fromJson(Map<String, dynamic> json) {
+    return Product(
+      id: json['id'],
+      title: json['title'],
+      description: json['description'],
+      price: json['price'],
+      imageUrl: json['imageUrl'],
+      type: json['type'],
+      isFavorite: json['isFavorite']
+    );
+  }
 
   Product copyWith(
       {String? id,
