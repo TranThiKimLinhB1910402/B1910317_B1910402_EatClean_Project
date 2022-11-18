@@ -1,14 +1,16 @@
-import 'package:eatcleanproject/ui/home/home_screen.dart';
-import 'package:eatcleanproject/ui/widgets/appicon.dart';
-import 'package:eatcleanproject/ui/widgets/welcome_screen.dart';
+import 'package:eatcleanproject/ui/products/edit_product.dart';
 import 'package:flutter/material.dart';
-import 'package:eatcleanproject/ui/widgets/big_text.dart';
-import 'package:eatcleanproject/ui/widgets/small_text.dart';
+
 import 'package:eatcleanproject/ui/colors.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AppBarOrder extends StatelessWidget {
-  const AppBarOrder({super.key});
+  final String title;
+  const AppBarOrder(
+      {super.key,
+      required this.title,
+      required this.click});
+  final IconButton click;
 
   @override
   Widget build(BuildContext context) {
@@ -30,15 +32,16 @@ class AppBarOrder extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           IconButton(
+            color: Color.fromARGB(255, 13, 76, 33),
             icon: new Icon(Icons.arrow_back, size: 25.0),
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => WelcomeScreen()));
+              Navigator.pop(context);
+              // Navigator.push(context,
+              //     MaterialPageRoute(builder: (context) => WelcomeScreen()));
             },
-            color: AppColors.mainColor,
           ),
           Text(
-            'Đơn đặt hàng',
+            title,
             style: TextStyle(
                 fontSize: 18,
                 color: Color.fromARGB(255, 0, 0, 0),
@@ -47,17 +50,8 @@ class AppBarOrder extends StatelessWidget {
           Container(
               height: 40,
               width: 40,
-              child: IconButton(
-                padding: new EdgeInsets.all(0.0),
-                icon: FaIcon(
-                  FontAwesomeIcons.comments,
-                  size: 20,
-                ),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                color: Color.fromARGB(255, 170, 36, 10),
-              )),
+              child: click,
+              )
         ],
       ),
     );

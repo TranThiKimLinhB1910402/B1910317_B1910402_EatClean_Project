@@ -24,6 +24,24 @@ class _CartScreenState extends State<CartScreen> {
     ChangeNotifierProvider(create: (context) => AuthManager());
     return Consumer<AuthManager>(
       builder: (context, authManager, child) {
+        return Material(
+          child: authManager.isAuth
+              ? buildPageCart(cart, total)
+              : FutureBuilder(
+                  future: authManager.tryAutoLogin(),
+                  builder: (context, snapshot) {
+                    return snapshot.connectionState == ConnectionState.waiting
+                        ? const SplashScreen()
+                        : AuthScreen();
+                  }),
+        );
+      },
+    );
+  }
+
+  Widget buildPageCart(cart, total) {
+    return Consumer<AuthManager>(
+      builder: (context, authManager, child) {
         return Scaffold(
           body: Column(children: [
             AppBarCart(),
@@ -54,16 +72,6 @@ class _CartScreenState extends State<CartScreen> {
             )
           ]),
         );
-        //MaterialApp(debugShowCheckedModeBanner: false, home: CartPage()
-        // authManager.isAuth
-        //     ? CartPage()
-        //     : FutureBuilder(
-        //         future: authManager.tryAutoLogin(),
-        //         builder: (context, snapshot) {
-        //           return snapshot.connectionState == ConnectionState.waiting
-        //               ? const SplashScreen()
-        //               : AuthScreen();
-        //         }),
       },
     );
   }

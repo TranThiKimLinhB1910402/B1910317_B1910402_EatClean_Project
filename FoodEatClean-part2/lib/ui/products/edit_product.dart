@@ -1,4 +1,6 @@
+import 'package:eatcleanproject/ui/orders/app_bar_order.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import '../../models/product.dart';
 import '../screen.dart';
@@ -68,35 +70,40 @@ class _EditProductScreenState extends State<EditProductScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: const Text('Edit Product'),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.save),
-            onPressed: _saveForm,
-          ),
-        ],
-      ),
-      body: _isLoading
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
-          : Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Form(
-                key: _editForm,
-                child: ListView(
-                  children: <Widget>[
-                    buildTitleField(),
-                    buildPriceField(),
-                    buildDescriptionField(),
-                    buildProductPreview(),
-                  ],
-                ),
-              ),
-            ),
-    );
+        resizeToAvoidBottomInset: false,
+        body: Column(
+          children: [
+            AppBarOrder(
+                title: 'Chỉnh sửa sản phẩm',
+                click: IconButton(
+                    onPressed: _saveForm,
+                    icon: FaIcon(
+                      FontAwesomeIcons.floppyDisk,
+                      size: 25,
+                      color: Color.fromARGB(255, 13, 76, 33),
+                    ))),
+            _isLoading
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : Container(
+                    height: 600,
+                    padding: const EdgeInsets.all(20.0),
+                    child: Form(
+                      key: _editForm,
+                      child: ListView(
+                        children: <Widget>[
+                          buildTitleField(),
+                          buildTypeField(),
+                          buildPriceField(),
+                          buildDescriptionField(),
+                          buildProductPreview(),
+                        ],
+                      ),
+                    ),
+                  ),
+          ],
+        ));
   }
 
   TextFormField buildTitleField() {
@@ -113,6 +120,24 @@ class _EditProductScreenState extends State<EditProductScreen> {
       },
       onSaved: (value) {
         _editedProduct = _editedProduct.copyWith(title: value);
+      },
+    );
+  }
+
+  TextFormField buildTypeField() {
+    return TextFormField(
+      initialValue: _editedProduct.type,
+      decoration: const InputDecoration(labelText: 'Type'),
+      textInputAction: TextInputAction.next,
+      autofocus: true,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return 'Please provide a value.';
+        }
+        return null;
+      },
+      onSaved: (value) {
+        _editedProduct = _editedProduct.copyWith(type: value);
       },
     );
   }
@@ -228,11 +253,11 @@ class _EditProductScreenState extends State<EditProductScreen> {
     print(999);
     try {
       final productsManager = context.read<ProductManager>();
-      // if (_editedProduct.id != null) {
-      //   await productsManager.updateProduct(_editedProduct);
-      // } else {
-      //   await productsManager.addProduct(_editedProduct);
-      // }
+      if (_editedProduct.id != null) {
+        await productsManager.updateProduct(_editedProduct);
+      } else {
+        await productsManager.addProduct(_editedProduct);
+      }
     } catch (error) {
       await showErrorDialog(context, 'Something went wrong.');
     }

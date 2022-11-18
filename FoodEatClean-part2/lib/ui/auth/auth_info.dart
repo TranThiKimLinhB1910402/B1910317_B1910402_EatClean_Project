@@ -1,4 +1,5 @@
-import 'package:eatcleanproject/ui/auth/auth_manager.dart';
+import 'package:eatcleanproject/ui/admin/product_list.dart';
+
 import 'package:eatcleanproject/ui/screen.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:flutter/material.dart';
@@ -17,9 +18,8 @@ class _AuthInfoState extends State<AuthInfo> {
     ChangeNotifierProvider(create: (context) => AuthManager());
     return Consumer<AuthManager>(
       builder: (context, authManager, child) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          home: authManager.isAuth
+        return Material(
+          child: authManager.isAuth
               ? _buildLogout(authManager.authToken!.email)
               : FutureBuilder(
                   future: authManager.tryAutoLogin(),
@@ -36,8 +36,7 @@ class _AuthInfoState extends State<AuthInfo> {
   Widget _buildLogout(auth) {
     return Consumer<AuthManager>(
       builder: (context, user, child) {
-        return 
-        Material(
+        return Material(
           child: Padding(
             padding:
                 const EdgeInsets.only(top: 70, left: 20, right: 20, bottom: 30),
@@ -96,13 +95,18 @@ class _AuthInfoState extends State<AuthInfo> {
                           child: ListTile(
                             leading: GFIconButton(
                               onPressed: () {},
-                              icon: Icon(Icons.change_circle),
+                              icon: Icon(Icons.book),
                               color: Colors.green,
                               iconSize: 18,
                               shape: GFIconButtonShape.circle,
                             ),
-                            title: const Text('Đổi mật khẩu'),
-                            onTap: () {},
+                            title: const Text('Danh sách sản phẩm'),
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ProductList()));
+                            },
                           ),
                         ),
                       ),
