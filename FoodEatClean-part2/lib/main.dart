@@ -1,3 +1,5 @@
+import 'package:eatcleanproject/ui/orders/order_manager.dart';
+import 'package:eatcleanproject/ui/orders/order_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -11,13 +13,13 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => ProductManager()),
         ChangeNotifierProvider(create: (context) => CartManager()),
         ChangeNotifierProvider(create: (context) => AuthManager()),
+        ChangeNotifierProvider(create: (context) => OrdersManager()),
       ],
       child: Consumer<AuthManager>(builder: (context, authManager, child) {
         return MaterialApp(
@@ -28,11 +30,7 @@ class MyApp extends StatelessWidget {
               textTheme: Theme.of(context)
                   .textTheme
                   .apply(displayColor: Colors.black)),
-          routes: {
-            RegisterPage.routeName: (ctx) => const RegisterPage(),
-            SignInPage.routeName: (ctx) => const SignInPage(),
-            RegisterPage.routeName: (ctx) => const RegisterPage(),
-          },
+         
           home: authManager.isAuth
               ? const WelcomeScreen()
               : FutureBuilder(

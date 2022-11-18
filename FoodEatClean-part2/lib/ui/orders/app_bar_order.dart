@@ -7,8 +7,8 @@ import 'package:eatcleanproject/ui/widgets/small_text.dart';
 import 'package:eatcleanproject/ui/colors.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class AppBarCart extends StatelessWidget {
-  const AppBarCart({super.key});
+class AppBarOrder extends StatelessWidget {
+  const AppBarOrder({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +18,9 @@ class AppBarCart extends StatelessWidget {
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
-            color: Color.fromARGB(255, 96, 95, 95)
-                .withOpacity(0.25), //color of shadow
-            spreadRadius: 5, //spread radius
-            blurRadius: 7, // blur radius
+            color: Color.fromARGB(255, 96, 95, 95).withOpacity(0.25),
+            spreadRadius: 5,
+            blurRadius: 8,
             offset: Offset(2, 2),
           )
         ],
@@ -39,7 +38,7 @@ class AppBarCart extends StatelessWidget {
             color: AppColors.mainColor,
           ),
           Text(
-            'Giỏ hàng',
+            'Đơn đặt hàng',
             style: TextStyle(
                 fontSize: 18,
                 color: Color.fromARGB(255, 0, 0, 0),
@@ -48,10 +47,6 @@ class AppBarCart extends StatelessWidget {
           Container(
               height: 40,
               width: 40,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
-                // color: Color.fromARGB(255, 239, 238, 238),
-              ),
               child: IconButton(
                 padding: new EdgeInsets.all(0.0),
                 icon: FaIcon(

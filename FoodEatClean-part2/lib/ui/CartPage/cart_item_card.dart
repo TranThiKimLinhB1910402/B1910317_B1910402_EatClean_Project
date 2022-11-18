@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:eatcleanproject/models/cart_item.dart';
 import 'package:eatcleanproject/models/product.dart';
 import 'package:eatcleanproject/ui/CartPage/cart_manager.dart';
@@ -10,6 +12,7 @@ import 'package:eatcleanproject/ui/widgets/icon_and_text.dart';
 import 'package:eatcleanproject/ui/widgets/small_text.dart';
 import 'package:eatcleanproject/ui/Products/Manager/product_manager.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 
 class CartItemCard extends StatefulWidget {
@@ -21,12 +24,15 @@ class CartItemCard extends StatefulWidget {
     super.key,
   });
 
+  int get itemCount {
+    return cartItem.quantity;
+  }
+
   @override
   State<CartItemCard> createState() => _CartItemCardState();
 }
 
 class _CartItemCardState extends State<CartItemCard> {
-  int _currCounter = 0;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -54,7 +60,6 @@ class _CartItemCardState extends State<CartItemCard> {
   }
 
   Widget _buildItemCard() {
-    var _currCounter = widget.cartItem.quantity;
     return Container(
       child: Row(
         children: [
@@ -112,66 +117,77 @@ class _CartItemCardState extends State<CartItemCard> {
                 SizedBox(
                   height: 10,
                 ),
-                buildEditButton(_currCounter)
+                Container(
+                  padding: EdgeInsets.only(left: 10),
+                  height: 30,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: Colors.grey[200]),
+                  width: 100,
+                  child: Row(children: [
+                    Text(
+                      'Số lượng:',
+                      style: TextStyle(fontSize: 15),
+                    ),
+                    SizedBox(width: 5),
+                    Text('${widget.cartItem.quantity}',
+                        style: TextStyle(fontSize: 17, color: Colors.red))
+                  ]),
+                )
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.start,
+                //   children: [
+                //     Container(
+                //       height: 26,
+                //       width: 30,
+                //       decoration: BoxDecoration(
+                //         borderRadius: BorderRadius.circular(5),
+                //         color: Color.fromARGB(255, 239, 238, 238),
+                //       ),
+                //       child: IconButton(
+                //         padding: new EdgeInsets.all(0.0),
+                //         icon: FaIcon(
+                //           FontAwesomeIcons.minus,
+                //           size: 15,
+                //         ),
+                //         onPressed: () {
+
+                //         },
+                //         color: Color(0xFF756d54),
+                //       ),
+                //     ),
+                //     SizedBox(width: 10),
+                //     BigText(
+                //       text: '${widget.cartItem.quantity}',
+                //       size: 16,
+                //     ),
+                //     SizedBox(width: 10),
+                //     Container(
+                //       height: 26,
+                //       width: 30,
+                //       decoration: BoxDecoration(
+                //         borderRadius: BorderRadius.circular(5),
+                //         color: Color.fromARGB(255, 239, 238, 238),
+                //       ),
+                //       child: IconButton(
+                //         padding: new EdgeInsets.all(0.0),
+                //         icon: FaIcon(
+                //           FontAwesomeIcons.plus,
+                //           size: 15,
+                //         ),
+                //         onPressed: () {
+
+                //         },
+                //         color: Color(0xFF756d54),
+                //       ),
+                //     ),
+                //   ],
+                // )
               ],
             ),
           ),
         ],
       ),
     );
-  }
-
-  Widget buildEditButton(counter) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Container(
-          height: 26,
-          width: 30,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            color: Color.fromARGB(255, 239, 238, 238),
-          ),
-          child: IconButton(
-            padding: new EdgeInsets.all(0.0),
-            icon: FaIcon(
-              FontAwesomeIcons.minus,
-              size: 15,
-            ),
-            onPressed: () {},
-            color: Color(0xFF756d54),
-          ),
-        ),
-        SizedBox(width: 10),
-        BigText(
-          text: '${counter}',
-          size: 16,
-        ),
-        SizedBox(width: 10),
-        Container(
-          height: 26,
-          width: 30,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            color: Color.fromARGB(255, 239, 238, 238),
-          ),
-          child: IconButton(
-            padding: new EdgeInsets.all(0.0),
-            icon: FaIcon(
-              FontAwesomeIcons.plus,
-              size: 15,
-            ),
-            onPressed: () {},
-            color: Color(0xFF756d54),
-          ),
-        ),
-      ],
-    );
-  }
-
-  void _increment() {
-    setState(() {
-      _currCounter++;
-    });
   }
 }

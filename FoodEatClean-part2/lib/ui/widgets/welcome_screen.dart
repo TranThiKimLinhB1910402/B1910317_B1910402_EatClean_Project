@@ -27,7 +27,7 @@ class _WelcomeScreen extends State<WelcomeScreen> {
     return Scaffold(
       body: PageView(
         controller: _pageController,
-        children: [HomePage(), ProductsPage(), AuthInfo()],
+        children: [HomePage(), ProductsPage(), OrderScreen(), AuthInfo()],
         onPageChanged: (index) {
           // Use a better state management solution
           // setState is used for simplicity
@@ -50,6 +50,11 @@ class _WelcomeScreen extends State<WelcomeScreen> {
             icon: Icon(Icons.search),
             title: Text('Tìm kiếm'),
             activeColor: Colors.red,
+          ),
+          BottomBarItem(
+            icon: Icon(Icons.assignment),
+            title: Text('Đơn hàng'),
+            activeColor: Color.fromARGB(255, 137, 73, 242),
           ),
           BottomBarItem(
             icon: Icon(Icons.person),

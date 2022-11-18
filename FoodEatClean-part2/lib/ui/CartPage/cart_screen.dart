@@ -1,6 +1,8 @@
 import 'package:eatcleanproject/ui/CartPage/app_bar_cart.dart';
 import 'package:eatcleanproject/ui/CartPage/cart_item_card.dart';
 import 'package:eatcleanproject/ui/colors.dart';
+import 'package:eatcleanproject/ui/orders/order_manager.dart';
+import 'package:eatcleanproject/ui/orders/order_screen.dart';
 import 'package:eatcleanproject/ui/products/Manager/product_manager.dart';
 import 'package:eatcleanproject/ui/screen.dart';
 import 'package:eatcleanproject/ui/widgets/big_text.dart';
@@ -18,35 +20,51 @@ class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     final cart = context.watch<CartManager>();
-    return Scaffold(
-      body: Column(children: [
-        AppBarCart(),
-        Expanded(
-          child: SingleChildScrollView(
-            child: Container(height: 1000, child: buildCartItems(cart)),
-          ),
-        ),
-        Container(
-          height: 150,
-          decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: Color(0xFFe8e8e8),
-                offset: const Offset(5.0, 5.0),
-                blurRadius: 5.0,
-                spreadRadius: 5.0,
-              ), //BoxShadow
-              BoxShadow(
-                color: Colors.white,
-                offset: const Offset(0.0, 5.0),
-                blurRadius: 0.0,
-                spreadRadius: 0.0,
-              ), //BoxShadow
-            ],
-          ),
-          child: buildCartSummary(),
-        )
-      ]),
+    final total = cart.totalAmount;
+    ChangeNotifierProvider(create: (context) => AuthManager());
+    return Consumer<AuthManager>(
+      builder: (context, authManager, child) {
+        return Scaffold(
+          body: Column(children: [
+            AppBarCart(),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Container(height: 1000, child: buildCartItems(cart)),
+              ),
+            ),
+            Container(
+              height: 150,
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0xFFe8e8e8),
+                    offset: const Offset(5.0, 5.0),
+                    blurRadius: 5.0,
+                    spreadRadius: 5.0,
+                  ), //BoxShadow
+                  BoxShadow(
+                    color: Colors.white,
+                    offset: const Offset(0.0, 5.0),
+                    blurRadius: 0.0,
+                    spreadRadius: 0.0,
+                  ), //BoxShadow
+                ],
+              ),
+              child: buildCartSummary(cart, total),
+            )
+          ]),
+        );
+        //MaterialApp(debugShowCheckedModeBanner: false, home: CartPage()
+        // authManager.isAuth
+        //     ? CartPage()
+        //     : FutureBuilder(
+        //         future: authManager.tryAutoLogin(),
+        //         builder: (context, snapshot) {
+        //           return snapshot.connectionState == ConnectionState.waiting
+        //               ? const SplashScreen()
+        //               : AuthScreen();
+        //         }),
+      },
     );
   }
 
@@ -60,7 +78,7 @@ class _CartScreenState extends State<CartScreen> {
             .toList());
   }
 
-  Widget buildCartSummary() {
+  Widget buildCartSummary(CartManager cart, total) {
     return Column(
       children: [
         Container(
@@ -104,7 +122,7 @@ class _CartScreenState extends State<CartScreen> {
                     height: 10,
                   ),
                   Text(
-                    '200.0' + '00 VNĐ',
+                    '$total' + '00 VNĐ',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                   )
                 ],
@@ -114,7 +132,18 @@ class _CartScreenState extends State<CartScreen> {
                   'Đặt hàng',
                   style: TextStyle(fontSize: 18),
                 ),
-                onPressed: () {},
+                onPressed: cart.totalAmount <= 0
+                    ? null
+                    : () {
+                        context
+                            .read<OrdersManager>()
+                            .addOrder(cart.products, cart.totalAmount);
+                        cart.clear();
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => OrderScreen()));
+                      },
                 style: TextButton.styleFrom(
                     padding: EdgeInsets.only(
                         top: 15, bottom: 15, left: 50, right: 50),

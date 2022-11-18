@@ -6,13 +6,32 @@ import '../../models/product.dart';
 import '../widgets/appicon.dart';
 import 'package:provider/provider.dart';
 
-class ProductDetailScreen extends StatelessWidget {
+class ProductDetailScreen extends StatefulWidget {
   static const routeName = "/detail_product";
   final Product product;
   const ProductDetailScreen(
     this.product, {
     super.key,
   });
+
+  @override
+  State<ProductDetailScreen> createState() => _ProductDetailScreenState();
+}
+
+class _ProductDetailScreenState extends State<ProductDetailScreen> {
+  int _n = 1;
+  void add() {
+    setState(() {
+      _n++;
+    });
+  }
+
+  void minus() {
+    setState(() {
+      if (_n != 0) _n--;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +47,7 @@ class ProductDetailScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: NetworkImage(product.imageUrl))),
+                        image: NetworkImage(widget.product.imageUrl))),
               )),
           Positioned(
               top: 70,
@@ -68,12 +87,12 @@ class ProductDetailScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(product.title,
+                        Text(widget.product.title,
                             style: TextStyle(
                               fontSize: 25,
                               fontWeight: FontWeight.w700,
                             )),
-                        Text(product.price.toString() + "00 VNĐ",
+                        Text(widget.product.price.toString() + "00 VNĐ",
                             style: TextStyle(
                               fontSize: 20,
                               color: Colors.red,
@@ -155,7 +174,7 @@ class ProductDetailScreen extends StatelessWidget {
                         SizedBox(
                           height: 18,
                         ),
-                        Text(product.description,
+                        Text(widget.product.description,
                             style: TextStyle(fontSize: 15)),
                       ],
                     )
@@ -181,7 +200,7 @@ class ProductDetailScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10)),
                     child: TextButton(
                         onPressed: () {
-                          print('remove');
+                          minus();
                         },
                         child: Icon(
                           Icons.remove,
@@ -191,7 +210,7 @@ class ProductDetailScreen extends StatelessWidget {
                   ),
                   Container(
                     padding: EdgeInsets.only(left: 20, right: 20),
-                    child: Text('1',
+                    child: Text('$_n',
                         style: TextStyle(
                             fontWeight: FontWeight.w700, fontSize: 17)),
                   ),
@@ -203,7 +222,7 @@ class ProductDetailScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10)),
                     child: TextButton(
                         onPressed: () {
-                          print('add');
+                          add();
                         },
                         child: Icon(Icons.add, color: Colors.black, size: 18)),
                   )
@@ -220,7 +239,11 @@ class ProductDetailScreen extends StatelessWidget {
                   TextButton(
                       onPressed: () {
                         final cart = context.read<CartManager>();
-                        cart.addItem(product);
+                        cart.addItem(widget.product, _n);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CartScreen()));
                       },
                       child: Text('THÊM VÀO GIỎ HÀNG',
                           style: TextStyle(

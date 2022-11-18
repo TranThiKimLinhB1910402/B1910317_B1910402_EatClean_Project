@@ -1,7 +1,6 @@
 import 'package:eatcleanproject/ui/home/app_bar_home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:eatcleanproject/ui/widgets/app_bar.dart';
 import 'package:eatcleanproject/ui/widgets/category_list.dart';
 import 'package:eatcleanproject/ui/colors.dart';
 import 'package:eatcleanproject/ui/home/home_screen_body.dart';

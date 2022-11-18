@@ -36,7 +36,8 @@ class _AuthInfoState extends State<AuthInfo> {
   Widget _buildLogout(auth) {
     return Consumer<AuthManager>(
       builder: (context, user, child) {
-        return Material(
+        return 
+        Material(
           child: Padding(
             padding:
                 const EdgeInsets.only(top: 70, left: 20, right: 20, bottom: 30),
@@ -78,7 +79,6 @@ class _AuthInfoState extends State<AuthInfo> {
                               shape: GFIconButtonShape.circle,
                             ),
                             onTap: () {
-                              print('sbc');
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(

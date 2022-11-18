@@ -1,14 +1,16 @@
-import 'package:eatcleanproject/models/cart_item.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+import 'cart_item.dart';
 
-class OrderItem {
+class OrderItem with ChangeNotifier {
   final String? id;
   final double amount;
   final List<CartItem> products;
   final DateTime dateTime;
 
-   int get productCount{
+  int get productCount {
     return products.length;
-  } 
+  }
 
   OrderItem({
     this.id,
@@ -17,17 +19,16 @@ class OrderItem {
     DateTime? dateTime,
   }) : dateTime = dateTime ?? DateTime.now();
 
-   OrderItem copyWith({
+  OrderItem copyWith({
     String? id,
     double? amount,
     List<CartItem>? products,
     DateTime? dateTime,
-  }){
+  }) {
     return OrderItem(
-      id: id ?? this.id,
-      amount: amount ?? this.amount,
-      products: products ?? this.products,
-      dateTime:  dateTime ?? this.dateTime
-    );
+        id: id ?? this.id,
+        amount: amount ?? this.amount,
+        products: products ?? this.products,
+        dateTime: dateTime ?? this.dateTime);
   }
 }

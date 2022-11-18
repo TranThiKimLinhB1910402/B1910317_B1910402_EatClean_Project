@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 class Product {
   final String? id;
   final String title;
@@ -14,7 +16,7 @@ class Product {
       required this.price,
       required this.imageUrl,
       this.isFavorite = false});
- Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'title': title,
       'description': description,
@@ -27,14 +29,13 @@ class Product {
 
   static Product fromJson(Map<String, dynamic> json) {
     return Product(
-      id: json['id'],
-      title: json['title'],
-      description: json['description'],
-      price: json['price'],
-      imageUrl: json['imageUrl'],
-      type: json['type'],
-      isFavorite: json['isFavorite']
-    );
+        id: json['id'],
+        title: json['title'],
+        description: json['description'],
+        price: json['price'],
+        imageUrl: json['imageUrl'],
+        type: json['type'],
+        isFavorite: json['isFavorite']);
   }
 
   Product copyWith(

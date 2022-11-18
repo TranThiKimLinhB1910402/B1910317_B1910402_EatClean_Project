@@ -1,23 +1,19 @@
-import 'dart:math';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:eatcleanproject/models/typeproduct.dart';
-import 'package:eatcleanproject/models/product.dart';
-import 'package:eatcleanproject/ui/home/CardFood/cart_product.dart';
-import 'package:eatcleanproject/ui/products/Manager/product_manager.dart';
 import 'package:eatcleanproject/ui/screen.dart';
-import 'package:flutter/material.dart';
-import 'package:eatcleanproject/ui/widgets/category_list.dart';
-import 'package:eatcleanproject/ui/colors.dart';
-import 'package:eatcleanproject/ui/colors.dart';
-import 'package:eatcleanproject/ui/widgets/big_text.dart';
-import 'package:eatcleanproject/ui/widgets/icon_and_text.dart';
-import 'package:eatcleanproject/ui/widgets/small_text.dart';
+import '../../models/product.dart';
 
-class ProductsGrid extends StatelessWidget {
+class ProductsGrid extends StatefulWidget {
   ProductsGrid({super.key});
 
-  final typeProduct = TypeProductManager().items;
+  @override
+  State<ProductsGrid> createState() => _ProductsGridState();
+}
 
+class _ProductsGridState extends State<ProductsGrid> {
+  final typeProduct = TypeProductManager().items;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -64,30 +60,57 @@ class ProductsGrid extends StatelessWidget {
   }
 }
 
-class ListTypeProduct extends StatelessWidget {
+class ListTypeProduct extends StatefulWidget {
   final TypeProduct typeProduct;
-  
-  ListTypeProduct(
-    this.typeProduct,
-    {super.key}
-  ) ;
 
-  final products = ProductManager().items;
-  final listproduct = [];
+  const ListTypeProduct(this.typeProduct, {super.key});
+
+  @override
+  State<ListTypeProduct> createState() => _ListTypeProductState();
+}
+
+class _ListTypeProductState extends State<ListTypeProduct> {
+  // final products = ProductManager().items;
+  late Future<void> _fetchProducts;
+  @override
+  void initState() {
+    super.initState();
+    _fetchProducts = context.read<ProductManager>().fetchProducts();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final productsManager = ProductManager();
+
+    final products = context.select<ProductManager, List<Product>>(
+        (productsManager) => productsManager.items);
+
+    List<Product> listproducts = [];
     return ListView.builder(
         physics: NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         scrollDirection: Axis.vertical,
         itemCount: 4,
         itemBuilder: (context, add) {
-          products.forEach((e) => {
-                if (e.type.compareTo(typeProduct.tenloai) == 0)
-                  {listproduct.add(e)}
-              });
-          return CartProduct(listproduct[add]);
+          for (var e in products) {
+            {
+              if (e.type == widget.typeProduct.tenloai) {
+                listproducts.add(e);
+              }
+            }
+            ;
+          }
+          // print(listproducts[add]);
+          if (listproducts.length != 0) {
+            return CartProduct(listproducts[add]);
+          } else {
+            return Container();
+          }
         });
   }
 }
