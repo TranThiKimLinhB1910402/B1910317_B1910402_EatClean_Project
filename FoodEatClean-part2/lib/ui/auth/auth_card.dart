@@ -1,4 +1,4 @@
-import 'package:eatcleanproject/ui/screen.dart';
+import '/ui/screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -6,7 +6,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../models/http_exception.dart';
 import '../shared/dialog_utils.dart';
 
-import 'auth_manager.dart';
 
 enum AuthMode { signup, login }
 

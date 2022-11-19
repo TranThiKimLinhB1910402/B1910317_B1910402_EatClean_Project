@@ -1,6 +1,4 @@
-import 'package:eatcleanproject/models/typeproduct.dart';
-
-import '../../../models/typeproduct.dart';
+import '/models/typeproduct.dart';
 import 'package:flutter/foundation.dart';
 
 class TypeProductManager with ChangeNotifier {

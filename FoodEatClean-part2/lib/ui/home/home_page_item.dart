@@ -1,7 +1,8 @@
+import 'package:eatcleanproject/ui/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:eatcleanproject/ui/home/CardFood/slide_home_cart.dart';
-import 'package:eatcleanproject/ui/products/Manager/product_manager.dart';
-import '../home/CardFood/slide_home_cart.dart';
+import '/ui/home/CardFood/slide_home_cart.dart';
+import '/ui/products/Manager/product_manager.dart';
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:provider/provider.dart';
 import '../../models/product.dart';
  
@@ -45,15 +46,30 @@ class _HomePageItemState extends State<HomePageItem> {
     final products = context.select<ProductManager, List<Product>>(
         (productsManager) => productsManager.items);
 
-    return Container(
-      height: 250,
-      child: PageView.builder(
-        controller: pageController,
-        itemCount: products.length,
-        itemBuilder: (context, position) {
-          return _buildPageItem(products,position);
-        },
-      ),
+    return 
+    Column(
+      children: [
+        Container(
+          height: 250,
+          child: PageView.builder(
+            controller: pageController,
+            itemCount: products.length,
+            itemBuilder: (context, position) {
+              return _buildPageItem(products,position);
+            },
+          ),
+        ),
+        new DotsIndicator(
+          dotsCount: 5,
+          position: _currPageValue,
+          decorator: DotsDecorator(
+              size: const Size.square(9.0),
+              activeSize: const Size(18.0, 9.0),
+              activeShape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5.0)),
+              activeColor: AppColors.mainColor),
+        ),
+      ],
     );
   }
  

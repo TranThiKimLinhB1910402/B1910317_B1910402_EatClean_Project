@@ -1,8 +1,6 @@
-import 'package:eatcleanproject/ui/products/edit_product.dart';
 import 'package:flutter/material.dart';
 
-import 'package:eatcleanproject/ui/colors.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '/ui/colors.dart';
 
 class AppBarOrder extends StatelessWidget {
   final String title;

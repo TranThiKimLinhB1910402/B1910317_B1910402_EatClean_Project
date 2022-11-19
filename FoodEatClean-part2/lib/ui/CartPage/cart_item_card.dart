@@ -1,18 +1,14 @@
 import 'dart:ui';
 
-import 'package:eatcleanproject/models/cart_item.dart';
-import 'package:eatcleanproject/models/product.dart';
-import 'package:eatcleanproject/ui/CartPage/cart_manager.dart';
-import 'package:eatcleanproject/ui/DetailsProduct/details_product_screen.dart';
-import 'package:eatcleanproject/ui/shared/dialog_utils.dart';
+import '/models/cart_item.dart';
+import '/ui/CartPage/cart_manager.dart';
+import '/ui/DetailsProduct/details_product_screen.dart';
+import '/ui/shared/dialog_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:eatcleanproject/ui/colors.dart';
-import 'package:eatcleanproject/ui/widgets/big_text.dart';
-import 'package:eatcleanproject/ui/widgets/icon_and_text.dart';
-import 'package:eatcleanproject/ui/widgets/small_text.dart';
-import 'package:eatcleanproject/ui/Products/Manager/product_manager.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:http/http.dart';
+import '/ui/widgets/big_text.dart';
+
+import '/ui/widgets/small_text.dart';
+
 import 'package:provider/provider.dart';
 
 class CartItemCard extends StatefulWidget {

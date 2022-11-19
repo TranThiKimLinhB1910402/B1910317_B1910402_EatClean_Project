@@ -67,48 +67,88 @@ class _AuthInfoState extends State<AuthInfo> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(bottom: 8),
-                        child: Card(
-                          elevation: 5,
-                          child: ListTile(
-                            leading: GFIconButton(
-                              onPressed: () {},
-                              icon: Icon(Icons.shopping_bag),
-                              color: Colors.red,
-                              iconSize: 18,
-                              shape: GFIconButtonShape.circle,
-                            ),
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          EditProductScreen(null)));
-                            },
-                            title: const Text('Đơn đặt hàng'),
-                          ),
-                        ),
+                        child: auth == 'ngoctran080901@gmail.com' ||
+                                auth == 'kimlinh@gmail.com'
+                            ? Card(
+                                elevation: 5,
+                                child: ListTile(
+                                  leading: GFIconButton(
+                                    onPressed: () {},
+                                    icon:
+                                        Icon(Icons.add_circle_outline_rounded),
+                                    color: Colors.red,
+                                    iconSize: 18,
+                                    shape: GFIconButtonShape.circle,
+                                  ),
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ProductList()));
+                                  },
+                                  title: const Text('Quản lý sản phẩm'),
+                                ),
+                              )
+                            : Card(
+                                elevation: 5,
+                                child: ListTile(
+                                  leading: GFIconButton(
+                                    onPressed: () {},
+                                    icon: Icon(Icons.shopping_bag),
+                                    color: Colors.red,
+                                    iconSize: 18,
+                                    shape: GFIconButtonShape.circle,
+                                  ),
+                                  title: const Text('Đơn hàng của bạn'),
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                OrderScreen()));
+                                  },
+                                ),
+                              ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(bottom: 8),
-                        child: Card(
-                          elevation: 5,
-                          child: ListTile(
-                            leading: GFIconButton(
-                              onPressed: () {},
-                              icon: Icon(Icons.book),
-                              color: Colors.green,
-                              iconSize: 18,
-                              shape: GFIconButtonShape.circle,
-                            ),
-                            title: const Text('Danh sách sản phẩm'),
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ProductList()));
-                            },
-                          ),
-                        ),
+                        child: auth == 'ngoctran080901@gmail.com' ||
+                                auth == 'kimlinh@gmail.com'
+                            ? Card(
+                                elevation: 5,
+                                child: ListTile(
+                                  leading: GFIconButton(
+                                    onPressed: () {},
+                                    icon: Icon(Icons.shopping_bag),
+                                    color: Colors.green,
+                                    iconSize: 18,
+                                    shape: GFIconButtonShape.circle,
+                                  ),
+                                  title: const Text('Quản lý đơn hàng'),
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                OrderScreen()));
+                                  },
+                                ),
+                              )
+                            : Card(
+                                elevation: 5,
+                                child: ListTile(
+                                  leading: GFIconButton(
+                                    onPressed: () {},
+                                    icon: Icon(Icons.remove_red_eye_sharp),
+                                    color: Colors.green,
+                                    iconSize: 18,
+                                    shape: GFIconButtonShape.circle,
+                                  ),
+                                  title: const Text('Sản phẩm đã xem'),
+                                  onTap: () {},
+                                ),
+                              ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(bottom: 8),
@@ -159,7 +199,7 @@ class _AuthInfoState extends State<AuthInfo> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => AuthScreen()));
+                                    builder: (context) => WelcomeScreen()));
 
                             context.read<AuthManager>().logout();
                           },

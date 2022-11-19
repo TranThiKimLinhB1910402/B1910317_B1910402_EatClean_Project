@@ -27,10 +27,8 @@ class _WelcomeScreen extends State<WelcomeScreen> {
     return Scaffold(
       body: PageView(
         controller: _pageController,
-        children: [HomePage(), ProductsPage(), OrderScreen(), AuthInfo()],
+        children: [HomePage(), ProductsPage(), CartScreen(), AuthInfo()],
         onPageChanged: (index) {
-          // Use a better state management solution
-          // setState is used for simplicity
           setState(() => _currentPage = index);
         },
       ),
@@ -52,8 +50,11 @@ class _WelcomeScreen extends State<WelcomeScreen> {
             activeColor: Colors.red,
           ),
           BottomBarItem(
-            icon: Icon(Icons.assignment),
-            title: Text('Đơn hàng'),
+            icon: FaIcon(
+              FontAwesomeIcons.cartShopping,
+              size: 15,
+            ),
+            title: Text('Giỏ hàng'),
             activeColor: Color.fromARGB(255, 137, 73, 242),
           ),
           BottomBarItem(

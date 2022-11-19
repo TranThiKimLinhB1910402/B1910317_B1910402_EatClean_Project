@@ -1,5 +1,5 @@
-import 'package:eatcleanproject/ui/CartPage/cart_manager.dart';
-import 'package:eatcleanproject/ui/CartPage/cart_screen.dart';
+import '/ui/CartPage/cart_manager.dart';
+import '/ui/CartPage/cart_screen.dart';
 import 'package:flutter/material.dart';
 import '../../models/product.dart';
 

@@ -1,10 +1,7 @@
-import 'package:eatcleanproject/ui/CartPage/cart_screen.dart';
-import 'package:eatcleanproject/ui/widgets/appicon.dart';
-import 'package:eatcleanproject/ui/widgets/welcome_screen.dart';
+import '/ui/CartPage/cart_screen.dart';
+import '/ui/widgets/welcome_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:eatcleanproject/ui/widgets/big_text.dart';
-import 'package:eatcleanproject/ui/widgets/small_text.dart';
-import 'package:eatcleanproject/ui/colors.dart';
+import '/ui/colors.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AppBarProducts extends StatelessWidget {

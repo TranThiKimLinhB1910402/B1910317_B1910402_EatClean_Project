@@ -1,12 +1,14 @@
-import 'package:eatcleanproject/ui/orders/order_manager.dart';
-import 'package:eatcleanproject/ui/orders/order_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter/services.dart';
 import 'ui/screen.dart';
 
 Future<void> main() async {
   await dotenv.load();
+  SystemChrome.setPreferredOrientations(
+          [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown])
+      .then((_) {});
   runApp(const MyApp());
 }
 
@@ -19,7 +21,13 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => ProductManager()),
         ChangeNotifierProvider(create: (context) => CartManager()),
         ChangeNotifierProvider(create: (context) => AuthManager()),
-        ChangeNotifierProvider(create: (context) => OrdersManager()),
+        ChangeNotifierProxyProvider<AuthManager, OrdersManager>(
+          create: (ctx) => OrdersManager(),
+          update: (ctx, authManager, ordersManager) {
+            ordersManager!.authToken = authManager.authToken;
+            return ordersManager;
+          },
+        )
       ],
       child: Consumer<AuthManager>(builder: (context, authManager, child) {
         return MaterialApp(
@@ -30,7 +38,6 @@ class MyApp extends StatelessWidget {
               textTheme: Theme.of(context)
                   .textTheme
                   .apply(displayColor: Colors.black)),
-         
           home: authManager.isAuth
               ? const WelcomeScreen()
               : FutureBuilder(

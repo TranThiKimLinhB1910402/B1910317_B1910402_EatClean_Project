@@ -6,21 +6,6 @@ import '../../models/cart_item.dart';
 class CartManager with ChangeNotifier {
   // ignore: prefer_final_fields
   Map<String, CartItem> _items = {
-    // 'p1': CartItem(
-    //     id: 'c1',
-    //     title: 'Salad hoa quả',
-    //     price: 40.000,
-    //     imageUrl:
-    //         'https://img.tastykitchen.vn/resize/764x-/2021/05/31/trai-cay-cung-cap-nguon-dinh-duong-doi-dao-tuoi-ma-861d.jpg',
-    //     quantity: 2),
-    // 'p2': CartItem(
-    //   id: 'c2',
-    //   title: 'Cá hồi rán',
-    //   price: 40.000,
-    //   quantity: 2,
-    //   imageUrl:
-    //       'https://cdn2.tieudungplus.vn/media/uploaded/26/2018/06/08/thuc-don-an-kieng-eat-clean-tieudungplus-5-tieudungplus-1528455450.jpg',
-    // ),
   };
 
   int get productCount {

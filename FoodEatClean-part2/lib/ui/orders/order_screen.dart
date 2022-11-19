@@ -1,17 +1,36 @@
-import 'package:eatcleanproject/ui/orders/app_bar_order.dart';
-import 'package:eatcleanproject/ui/orders/order_item_card.dart';
-import 'package:eatcleanproject/ui/orders/order_manager.dart';
-import 'package:eatcleanproject/ui/screen.dart';
+import 'package:eatcleanproject/models/order_item.dart';
+
+import '/ui/orders/app_bar_order.dart';
+import '/ui/orders/order_item_card.dart';
+import '/ui/screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
-class OrderScreen extends StatelessWidget {
+class OrderScreen extends StatefulWidget {
   static const routeName = '/orders';
   const OrderScreen({super.key});
 
   @override
+  State<OrderScreen> createState() => _OrderScreenState();
+}
+
+class _OrderScreenState extends State<OrderScreen> {
+  late Future<void> _fetchOrders;
+  @override
+  void initState() {
+    super.initState();
+    _fetchOrders = context.read<OrdersManager>().fetchOrders();
+  }
+
+  // @override
+  final ordersManager = OrdersManager();
+
+  @override
   Widget build(BuildContext context) {
+    final orders = context.select<OrdersManager, List<OrderItem>>(
+        (ordersManager) => ordersManager.items);
+
     final ordersManager = OrdersManager();
     return Scaffold(
         body: Column(
@@ -32,19 +51,21 @@ class OrderScreen extends StatelessWidget {
             },
           ),
         ),
-        Expanded(
-            child: SingleChildScrollView(
-                child: Container(
-          height: 1000,
+        Container(
           child: Consumer<OrdersManager>(
             builder: (context, ordersManager, child) {
               return ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
                 itemCount: ordersManager.orderCount,
-                itemBuilder: (ctx, i) => OrderItemCard(ordersManager.orders[i]),
+                itemBuilder: (ctx, i) => OrderItemCard(
+                  ordersManager.items[i],
+                ),
               );
             },
           ),
-        )))
+        )
       ],
     ));
   }

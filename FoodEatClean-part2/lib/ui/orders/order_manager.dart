@@ -1,43 +1,54 @@
+import 'package:eatcleanproject/models/auth_token.dart';
+import 'package:eatcleanproject/services/order_service.dart';
 import 'package:flutter/foundation.dart';
 
 import '../../models/cart_item.dart';
 import '../../models/order_item.dart';
 
 class OrdersManager with ChangeNotifier {
-  final List<OrderItem> _orders = [
-    // OrderItem(
-    //   id: 'o1',
-    //   amount: 59.98,
-    //   products: [
-    //    CartItem(
-    //     id: 'c1',
-    //     title: 'Salad hoa quả',
-    //     price: 40.000,
-    //     imageUrl:
-    //         'https://img.tastykitchen.vn/resize/764x-/2021/05/31/trai-cay-cung-cap-nguon-dinh-duong-doi-dao-tuoi-ma-861d.jpg',
-    //     quantity: 2),
-    //   ],
-    //   dateTime: DateTime.now(),
-    // )
-  ];
-  void addOrder(List<CartItem> cartProducts, double total) async {
-    _orders.insert(
+   List<OrderItem> _items = [];
+
+  final OrderService _orderService;
+
+  OrdersManager([AuthToken? authToken])
+      : _orderService = OrderService(authToken);
+
+  set authToken(AuthToken? authToken) {
+    _orderService.authToken = authToken;
+  }
+ Future<void> fetchOrders([bool filterByUser = false]) async {
+    _items = await _orderService.fetchOrders(filterByUser);
+    notifyListeners();
+  }
+  Future<void> addOrder(OrderItem orderItem) async {
+    final newOrder = await _orderService.addOrder(orderItem);
+    if (newOrder != null) {
+      _items.add(newOrder);
+      notifyListeners();
+    }
+  }
+
+  void addOrderTest(List<CartItem> cartProducts, double total, String fullname,
+      String phone, String address) async {
+    _items.insert(
       0,
       OrderItem(
-        id: 'o${DateTime.now().toIso8601String()}',
-        amount: total,
-        products: cartProducts,
-        dateTime: DateTime.now(),
-      ),
+          id: 'o${DateTime.now().toIso8601String()}',
+          amount: total,
+          products: cartProducts,
+          dateTime: DateTime.now(),
+          full_name: fullname,
+          phone: phone,
+          address: address),
     );
     notifyListeners();
   }
 
   int get orderCount {
-    return _orders.length;
+    return _items.length;
   }
 
-  List<OrderItem> get orders {
-    return [..._orders];
+  List<OrderItem> get items {
+    return [..._items];
   }
 }

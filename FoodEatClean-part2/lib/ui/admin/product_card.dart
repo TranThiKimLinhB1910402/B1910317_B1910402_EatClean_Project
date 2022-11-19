@@ -1,16 +1,13 @@
-import 'package:eatcleanproject/models/product.dart';
-import 'package:eatcleanproject/ui/DetailsProduct/details_product_screen.dart';
-import 'package:eatcleanproject/ui/admin/product_list.dart';
-import 'package:flutter/material.dart';
-import 'package:eatcleanproject/ui/colors.dart';
+import '/models/product.dart';
 
-import 'package:eatcleanproject/ui/widgets/big_text.dart';
-import 'package:eatcleanproject/ui/widgets/icon_and_text.dart';
-import 'package:eatcleanproject/ui/widgets/small_text.dart';
-import 'package:eatcleanproject/ui/Products/Manager/product_manager.dart';
+import 'package:flutter/material.dart';
+import '/ui/colors.dart';
+
+import '/ui/widgets/big_text.dart';
+import '/ui/widgets/icon_and_text.dart';
+import '/ui/widgets/small_text.dart';
 
 class CardProduct extends StatelessWidget {
-
   final Product product;
   const CardProduct(
     this.product, {
@@ -20,9 +17,7 @@ class CardProduct extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-    
-      },
+      onTap: () {},
       child: Container(
         child: Row(
           children: [

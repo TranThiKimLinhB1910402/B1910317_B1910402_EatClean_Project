@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
-import 'package:eatcleanproject/ui/screen.dart';
+import '/ui/screen.dart';
 import './admin_product_title.dart';
-import 'package:eatcleanproject/ui/orders/app_bar_order.dart';
+import '/ui/orders/app_bar_order.dart';
 
 class ProductList extends StatefulWidget {
   ProductList({super.key});
@@ -51,7 +51,7 @@ class _ProductListState extends State<ProductList> {
                 Expanded(
                     child: SingleChildScrollView(
                   child: Container(
-                    height: 1000,
+                    height: MediaQuery.of(context).size.height,
                     child: buildUserProductListView(),
                   ),
                 ))

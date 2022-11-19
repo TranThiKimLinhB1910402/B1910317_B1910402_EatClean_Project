@@ -1,9 +1,8 @@
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
-import 'package:dots_indicator/dots_indicator.dart';
 import '../../models/product.dart';
 
-import 'package:eatcleanproject/ui/screen.dart';
+import '/ui/screen.dart';
 
 class HomeBodyPage extends StatefulWidget {
   static const routeName = '/homepage';
@@ -54,16 +53,7 @@ class _HomeBodyPageState extends State<HomeBodyPage> {
         SizedBox(
           height: 10,
         ),
-        new DotsIndicator(
-          dotsCount: 5,
-          position: _currPageValue,
-          decorator: DotsDecorator(
-              size: const Size.square(9.0),
-              activeSize: const Size(18.0, 9.0),
-              activeShape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5.0)),
-              activeColor: AppColors.mainColor),
-        ),
+        
         //popular text
 
         Padding(

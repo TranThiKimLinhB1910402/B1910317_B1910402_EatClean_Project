@@ -1,12 +1,9 @@
-import 'package:eatcleanproject/ui/CartPage/app_bar_cart.dart';
-import 'package:eatcleanproject/ui/CartPage/cart_item_card.dart';
-import 'package:eatcleanproject/ui/colors.dart';
-import 'package:eatcleanproject/ui/orders/order_info.dart';
-import 'package:eatcleanproject/ui/orders/order_manager.dart';
-import 'package:eatcleanproject/ui/orders/order_screen.dart';
-import 'package:eatcleanproject/ui/products/Manager/product_manager.dart';
-import 'package:eatcleanproject/ui/screen.dart';
-import 'package:eatcleanproject/ui/widgets/big_text.dart';
+import '/ui/CartPage/cart_item_card.dart';
+
+import '/ui/orders/order_info.dart';
+
+import '/ui/screen.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -33,7 +30,23 @@ class _CartScreenState extends State<CartScreen> {
                   builder: (context, snapshot) {
                     return snapshot.connectionState == ConnectionState.waiting
                         ? const SplashScreen()
-                        : AuthScreen();
+                        : Container(
+                            alignment: Alignment.center,
+                            child: Card(
+                              color: Colors.lightGreen[300],
+                              child: Padding(
+                                padding: EdgeInsets.all(20),
+                                child: Text(
+                                  'Bạn cần phải đăng nhập',
+                                  style: TextStyle(
+                                      color: Color.fromARGB(255, 0, 0, 0),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                          );
+                    ;
                   }),
         );
       },

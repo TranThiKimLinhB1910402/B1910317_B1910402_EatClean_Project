@@ -1,7 +1,8 @@
-import 'package:eatcleanproject/ui/orders/app_bar_order.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+
+import '/ui/orders/app_bar_order.dart';
 import '../../models/product.dart';
 import '../screen.dart';
 

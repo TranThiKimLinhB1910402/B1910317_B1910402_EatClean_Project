@@ -1,5 +1,4 @@
-import 'package:eatcleanproject/ui/colors.dart';
-import 'package:eatcleanproject/ui/screen.dart';
+import '/ui/screen.dart';
 import 'package:flutter/material.dart';
 
 Future<bool?> showConfirmDialog(BuildContext context, String message) {

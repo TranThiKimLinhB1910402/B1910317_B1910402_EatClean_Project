@@ -6,14 +6,6 @@ import 'package:eatcleanproject/ui/widgets/small_text.dart';
 
 import 'package:eatcleanproject/ui/colors.dart';
 
-// class HomePage extends StatefulWidget {
-//   const HomePage({super.key});
-
-//   @override
-//   State<HomePage> createState() => _HomePageState();
-// }
-
-// class _HomePageState extends State<HomePage> {
 class SlideHomeCart extends StatelessWidget {
   final Product product;
   const SlideHomeCart(this.product, {super.key});
