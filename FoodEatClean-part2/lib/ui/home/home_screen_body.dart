@@ -2,53 +2,52 @@ import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import '../../models/product.dart';
- 
+
 import 'package:eatcleanproject/ui/screen.dart';
- 
+
 class HomeBodyPage extends StatefulWidget {
   static const routeName = '/homepage';
- 
+
   const HomeBodyPage({super.key});
   @override
   State<HomeBodyPage> createState() => _HomeBodyPageState();
 }
- 
+
 class _HomeBodyPageState extends State<HomeBodyPage> {
   PageController pageController = PageController(viewportFraction: 0.85);
- 
+
   late Future<void> _fetchProducts;
- 
- 
+
   var _currPageValue = 0.0;
   double _scaleFactor = 0.8;
   double _height = 220;
- 
+
   @override
   void initState() {
     super.initState();
- 
+
     _fetchProducts = context.read<ProductManager>().fetchProducts();
- 
+
     pageController.addListener(() {
       setState(() {
         _currPageValue = pageController.page!;
       });
     });
   }
- 
+
   @override
   void dispose() {
     pageController.dispose();
     super.dispose();
   }
- 
+
   @override
   Widget build(BuildContext context) {
     final productsManager = ProductManager();
- 
+
     final products = context.select<ProductManager, List<Product>>(
         (productsManager) => productsManager.items);
- 
+
     return Column(
       children: [
         HomePageItem(),
@@ -66,7 +65,7 @@ class _HomeBodyPageState extends State<HomeBodyPage> {
               activeColor: AppColors.mainColor),
         ),
         //popular text
- 
+
         Padding(
           padding: const EdgeInsets.only(top: 20, bottom: 20),
           child: CategoryList(),
@@ -94,9 +93,9 @@ class _HomeBodyPageState extends State<HomeBodyPage> {
             )
           ]),
         ),
- 
+
         Container(
-          height: 880,
+          height: 1000,
           child: ListView.builder(
               physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
@@ -108,5 +107,3 @@ class _HomeBodyPageState extends State<HomeBodyPage> {
     );
   }
 }
- 
-

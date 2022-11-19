@@ -1,6 +1,7 @@
 import 'package:eatcleanproject/ui/CartPage/app_bar_cart.dart';
 import 'package:eatcleanproject/ui/CartPage/cart_item_card.dart';
 import 'package:eatcleanproject/ui/colors.dart';
+import 'package:eatcleanproject/ui/orders/order_info.dart';
 import 'package:eatcleanproject/ui/orders/order_manager.dart';
 import 'package:eatcleanproject/ui/orders/order_screen.dart';
 import 'package:eatcleanproject/ui/products/Manager/product_manager.dart';
@@ -43,6 +44,7 @@ class _CartScreenState extends State<CartScreen> {
     return Consumer<AuthManager>(
       builder: (context, authManager, child) {
         return Scaffold(
+          resizeToAvoidBottomInset: false,
           body: Column(children: [
             AppBarCart(),
             Expanded(
@@ -143,14 +145,20 @@ class _CartScreenState extends State<CartScreen> {
                 onPressed: cart.totalAmount <= 0
                     ? null
                     : () {
-                        context
-                            .read<OrdersManager>()
-                            .addOrder(cart.products, cart.totalAmount);
-                        cart.clear();
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => OrderScreen()));
+                                builder: (context) => OrderInfo(
+                                    cart.products, cart.totalAmount)));
+
+                        // context
+                        //     .read<OrdersManager>()
+                        //     .addOrder(cart.products, cart.totalAmount);
+                        // cart.clear();
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => OrderScreen()));
                       },
                 style: TextButton.styleFrom(
                     padding: EdgeInsets.only(
