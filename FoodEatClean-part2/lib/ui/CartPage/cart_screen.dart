@@ -24,7 +24,7 @@ class _CartScreenState extends State<CartScreen> {
       builder: (context, authManager, child) {
         return Material(
           child: authManager.isAuth
-              ? buildPageCart(cart, total)
+              ? buildPageCart(cart, total, authManager.authToken!.email)
               : FutureBuilder(
                   future: authManager.tryAutoLogin(),
                   builder: (context, snapshot) {
@@ -36,12 +36,26 @@ class _CartScreenState extends State<CartScreen> {
                               color: Colors.lightGreen[300],
                               child: Padding(
                                 padding: EdgeInsets.all(20),
-                                child: Text(
-                                  'Bạn cần phải đăng nhập',
-                                  style: TextStyle(
-                                      color: Color.fromARGB(255, 0, 0, 0),
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Bạn cần phải đăng nhập',
+                                      style: TextStyle(
+                                          color: Color.fromARGB(255, 0, 0, 0),
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    IconButton(
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      AuthScreen()));
+                                        },
+                                        icon: Icon(Icons.arrow_forward))
+                                  ],
                                 ),
                               ),
                             ),
@@ -53,7 +67,7 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 
-  Widget buildPageCart(cart, total) {
+  Widget buildPageCart(cart, total, email) {
     return Consumer<AuthManager>(
       builder: (context, authManager, child) {
         return Scaffold(
@@ -83,7 +97,7 @@ class _CartScreenState extends State<CartScreen> {
                   ), //BoxShadow
                 ],
               ),
-              child: buildCartSummary(cart, total),
+              child: buildCartSummary(cart, total, email),
             )
           ]),
         );
@@ -101,7 +115,7 @@ class _CartScreenState extends State<CartScreen> {
             .toList());
   }
 
-  Widget buildCartSummary(CartManager cart, total) {
+  Widget buildCartSummary(CartManager cart, total, email) {
     return Column(
       children: [
         Container(
@@ -162,7 +176,7 @@ class _CartScreenState extends State<CartScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => OrderInfo(
-                                    cart.products, cart.totalAmount)));
+                                    cart.products, cart.totalAmount, email  )));
 
                         // context
                         //     .read<OrdersManager>()

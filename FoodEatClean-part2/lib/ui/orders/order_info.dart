@@ -9,9 +9,9 @@ import 'package:provider/provider.dart';
 
 class OrderInfo extends StatefulWidget {
   final List<CartItem> product;
-
+  final email;
   final total;
-  OrderInfo(this.product, this.total, {super.key}) {
+  OrderInfo(this.product, this.total, this.email, {super.key}) {
     this.orderItem = OrderItem(
         id: null,
         products: [],
@@ -19,6 +19,7 @@ class OrderInfo extends StatefulWidget {
         full_name: '',
         phone: '',
         address: '',
+        email: this.email,
         dateTime: new DateTime.now());
   }
   late final OrderItem orderItem;
@@ -106,8 +107,7 @@ class _OrderInfoState extends State<OrderInfo> {
               ),
             ),
             Container(
-              padding:
-                  EdgeInsets.only(right: 20, bottom: 10, left: 120, top: 10),
+              padding: EdgeInsets.only(right: 20, bottom: 20, left: 120),
               alignment: Alignment.centerRight,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -157,7 +157,7 @@ class _OrderInfoState extends State<OrderInfo> {
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.only(top: 20, left: 20, right: 20),
+                      padding: EdgeInsets.only(top: 10, left: 20, right: 20),
                       child: TextFormField(
                         initialValue: _addOrder.full_name,
                         decoration: InputDecoration(
@@ -176,7 +176,7 @@ class _OrderInfoState extends State<OrderInfo> {
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.only(top: 20, left: 20, right: 20),
+                      padding: EdgeInsets.only(top: 10, left: 20, right: 20),
                       child: TextFormField(
                         initialValue: _addOrder.address,
                         decoration: InputDecoration(
@@ -195,7 +195,8 @@ class _OrderInfoState extends State<OrderInfo> {
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.all(20),
+                      padding: EdgeInsets.only(
+                          top: 10, left: 20, right: 20, bottom: 10),
                       child: TextFormField(
                         initialValue: _addOrder.phone,
                         keyboardType: TextInputType.number,
@@ -224,10 +225,6 @@ class _OrderInfoState extends State<OrderInfo> {
                         //     phoneController.text,
                         //     addressController.text);
                         context.read<CartManager>().clear();
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => OrderScreen()));
                       },
                       child: Text(
                         'Đặt hàng',
@@ -260,12 +257,12 @@ class _OrderInfoState extends State<OrderInfo> {
     setState(() {
       _isLoading = true;
     });
-    print(_addOrder.full_name);
+    // print('save');
+    // print(_addOrder.full_name);
     try {
       final ordersManager = context.read<OrdersManager>();
 
       await ordersManager.addOrder(_addOrder);
-      print(11111);
     } catch (error) {
       await showErrorDialog(context, 'Something went wrong.');
     }
@@ -273,7 +270,8 @@ class _OrderInfoState extends State<OrderInfo> {
       _isLoading = false;
     });
     if (mounted) {
-      Navigator.of(context).pop();
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => OrderScreen()));
     }
   }
 

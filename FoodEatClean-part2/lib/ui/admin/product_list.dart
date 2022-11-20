@@ -51,7 +51,7 @@ class _ProductListState extends State<ProductList> {
                 Expanded(
                     child: SingleChildScrollView(
                   child: Container(
-                    height: MediaQuery.of(context).size.height,
+                    height: MediaQuery.of(context).size.height * 1.5,
                     child: buildUserProductListView(),
                   ),
                 ))

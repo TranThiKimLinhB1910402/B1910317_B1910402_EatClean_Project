@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:eatcleanproject/models/order_item.dart';
 
 import '/ui/orders/app_bar_order.dart';
@@ -32,41 +34,56 @@ class _OrderScreenState extends State<OrderScreen> {
         (ordersManager) => ordersManager.items);
 
     final ordersManager = OrdersManager();
-    return Scaffold(
-        body: Column(
-      children: [
-        AppBarOrder(
-          title: 'Đơn đặt hàng',
-          click: IconButton(
-            padding: new EdgeInsets.all(0.0),
-            icon: FaIcon(
-              FontAwesomeIcons.comments,
-              size: 21,
-              color: Color.fromARGB(255, 13, 76, 33),
+    ChangeNotifierProvider(create: (context) => AuthManager());
+    return Consumer<AuthManager>(builder: (context, authManager, child) {
+      return Scaffold(
+          body: Column(
+        children: [
+          AppBarOrder(
+            title: 'Đơn đặt hàng',
+            click: IconButton(
+              padding: new EdgeInsets.all(0.0),
+              icon: FaIcon(
+                FontAwesomeIcons.house,
+                size: 18,
+                color: Color.fromARGB(255, 13, 76, 33),
+              ),
+              color: Color.fromARGB(255, 170, 36, 10),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => WelcomeScreen()));
+              },
             ),
-            color: Color.fromARGB(255, 170, 36, 10),
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => WelcomeScreen()));
-            },
           ),
-        ),
-        Container(
-          child: Consumer<OrdersManager>(
-            builder: (context, ordersManager, child) {
-              return ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                itemCount: ordersManager.orderCount,
-                itemBuilder: (ctx, i) => OrderItemCard(
-                  ordersManager.items[i],
-                ),
-              );
-            },
-          ),
-        )
-      ],
-    ));
+          Expanded(
+            child: SingleChildScrollView(
+              child: Consumer<OrdersManager>(
+                builder: (context, ordersManager, child) {
+                  return ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      itemCount: ordersManager.orderCount,
+                      itemBuilder: (ctx, i) {
+                        if (authManager.authToken!.email ==
+                            ordersManager.items[i].email) {
+                          return OrderItemCard(
+                            ordersManager.items[i],
+                          );
+                        } else if (authManager.authToken!.email ==
+                                'ngoctran080901@gmail.com' ||
+                            authManager.authToken!.email ==
+                                'kimlinh@gmail.com') {
+                          return OrderItemCard(ordersManager.items[i]);
+                        }
+                        return Container();
+                      });
+                },
+              ),
+            ),
+          )
+        ],
+      ));
+    });
   }
 }

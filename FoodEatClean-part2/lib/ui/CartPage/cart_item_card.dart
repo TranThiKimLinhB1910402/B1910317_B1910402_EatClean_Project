@@ -130,55 +130,6 @@ class _CartItemCardState extends State<CartItemCard> {
                         style: TextStyle(fontSize: 17, color: Colors.red))
                   ]),
                 )
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.start,
-                //   children: [
-                //     Container(
-                //       height: 26,
-                //       width: 30,
-                //       decoration: BoxDecoration(
-                //         borderRadius: BorderRadius.circular(5),
-                //         color: Color.fromARGB(255, 239, 238, 238),
-                //       ),
-                //       child: IconButton(
-                //         padding: new EdgeInsets.all(0.0),
-                //         icon: FaIcon(
-                //           FontAwesomeIcons.minus,
-                //           size: 15,
-                //         ),
-                //         onPressed: () {
-
-                //         },
-                //         color: Color(0xFF756d54),
-                //       ),
-                //     ),
-                //     SizedBox(width: 10),
-                //     BigText(
-                //       text: '${widget.cartItem.quantity}',
-                //       size: 16,
-                //     ),
-                //     SizedBox(width: 10),
-                //     Container(
-                //       height: 26,
-                //       width: 30,
-                //       decoration: BoxDecoration(
-                //         borderRadius: BorderRadius.circular(5),
-                //         color: Color.fromARGB(255, 239, 238, 238),
-                //       ),
-                //       child: IconButton(
-                //         padding: new EdgeInsets.all(0.0),
-                //         icon: FaIcon(
-                //           FontAwesomeIcons.plus,
-                //           size: 15,
-                //         ),
-                //         onPressed: () {
-
-                //         },
-                //         color: Color(0xFF756d54),
-                //       ),
-                //     ),
-                //   ],
-                // )
               ],
             ),
           ),

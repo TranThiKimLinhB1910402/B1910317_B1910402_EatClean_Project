@@ -45,8 +45,11 @@ class _WelcomeScreen extends State<WelcomeScreen> {
             activeColor: Colors.blue,
           ),
           BottomBarItem(
-            icon: Icon(Icons.search),
-            title: Text('Tìm kiếm'),
+            icon: FaIcon(
+              FontAwesomeIcons.store,
+              size: 15,
+            ),
+            title: Text('Cửa hàng'),
             activeColor: Colors.red,
           ),
           BottomBarItem(

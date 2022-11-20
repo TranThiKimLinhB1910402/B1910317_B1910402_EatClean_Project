@@ -17,6 +17,7 @@ class ProductManager with ChangeNotifier {
 
   Future<void> fetchProducts([bool filterByUser = false]) async {
     _items = await _productService.fetchProducts(filterByUser);
+    // print(itemCount);
     notifyListeners();
   }
 

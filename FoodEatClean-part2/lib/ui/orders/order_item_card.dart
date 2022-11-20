@@ -25,15 +25,13 @@ class _OrderItemCardState extends State<OrderItemCard> {
   Widget build(BuildContext context) {
     return Card(
       elevation: 5,
-      // margin: const EdgeInsets.all(10),
       child: buildOrderSummary(),
-      //  if (_expanded) buildOrderDetails()
     );
   }
 
   Widget buildOrderDetails() {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       height: min(widget.order.productCount * 20.0 + 10, 100),
       child: ListView(
         children: widget.order.products!
@@ -75,11 +73,20 @@ class _OrderItemCardState extends State<OrderItemCard> {
       children: [
         ListTile(
           leading: Text(
-            widget.order.full_name,
+            widget.order.email,
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           trailing: Text(
             DateFormat('dd/MM/yyyy hh:mm').format(widget.order.dateTime),
+          ),
+        ),
+        ListTile(
+          leading: Text(
+            widget.order.full_name,
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+          trailing: Text(
+            widget.order.phone,
           ),
         ),
         ListTile(

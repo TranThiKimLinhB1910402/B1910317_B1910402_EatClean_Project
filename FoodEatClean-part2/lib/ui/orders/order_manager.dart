@@ -28,21 +28,21 @@ class OrdersManager with ChangeNotifier {
     }
   }
 
-  void addOrderTest(List<CartItem> cartProducts, double total, String fullname,
-      String phone, String address) async {
-    _items.insert(
-      0,
-      OrderItem(
-          id: 'o${DateTime.now().toIso8601String()}',
-          amount: total,
-          products: cartProducts,
-          dateTime: DateTime.now(),
-          full_name: fullname,
-          phone: phone,
-          address: address),
-    );
-    notifyListeners();
-  }
+  // void addOrderTest(List<CartItem> cartProducts, double total, String fullname,
+  //     String phone, String address) async {
+  //   _items.insert(
+  //     0,
+  //     OrderItem(
+  //         id: 'o${DateTime.now().toIso8601String()}',
+  //         amount: total,
+  //         products: cartProducts,
+  //         dateTime: DateTime.now(),
+  //         full_name: fullname,
+  //         phone: phone,
+  //         address: address),
+  //   );
+  //   notifyListeners();
+  // }
 
   int get orderCount {
     return _items.length;

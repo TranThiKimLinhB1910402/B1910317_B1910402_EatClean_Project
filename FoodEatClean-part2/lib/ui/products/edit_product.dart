@@ -71,40 +71,41 @@ class _EditProductScreenState extends State<EditProductScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Column(
-          children: [
-            AppBarOrder(
-                title: 'Chỉnh sửa sản phẩm',
-                click: IconButton(
-                    onPressed: _saveForm,
-                    icon: FaIcon(
-                      FontAwesomeIcons.floppyDisk,
-                      size: 25,
-                      color: Color.fromARGB(255, 13, 76, 33),
-                    ))),
-            _isLoading
-                ? const Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : Container(
-                    height: 600,
-                    padding: const EdgeInsets.all(20.0),
-                    child: Form(
-                      key: _editForm,
-                      child: ListView(
-                        children: <Widget>[
-                          buildTitleField(),
-                          buildTypeField(),
-                          buildPriceField(),
-                          buildDescriptionField(),
-                          buildProductPreview(),
-                        ],
-                      ),
+        body: SingleChildScrollView(
+      child: Column(
+        children: [
+          AppBarOrder(
+              title: 'Chỉnh sửa sản phẩm',
+              click: IconButton(
+                  onPressed: _saveForm,
+                  icon: FaIcon(
+                    FontAwesomeIcons.floppyDisk,
+                    size: 25,
+                    color: Color.fromARGB(255, 13, 76, 33),
+                  ))),
+          _isLoading
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Container(
+                  height: 600,
+                  padding: const EdgeInsets.all(20.0),
+                  child: Form(
+                    key: _editForm,
+                    child: ListView(
+                      children: <Widget>[
+                        buildTitleField(),
+                        buildTypeField(),
+                        buildPriceField(),
+                        buildDescriptionField(),
+                        buildProductPreview(),
+                      ],
                     ),
                   ),
-          ],
-        ));
+                ),
+        ],
+      ),
+    ));
   }
 
   TextFormField buildTitleField() {
@@ -251,7 +252,6 @@ class _EditProductScreenState extends State<EditProductScreen> {
     setState(() {
       _isLoading = true;
     });
-    print(999);
     try {
       final productsManager = context.read<ProductManager>();
       if (_editedProduct.id != null) {

@@ -10,6 +10,7 @@ class OrderItem with ChangeNotifier {
   final String full_name;
   final String phone;
   final String address;
+  final String email;
 
   int get productCount {
     return products!.length;
@@ -22,24 +23,28 @@ class OrderItem with ChangeNotifier {
     required this.full_name,
     required this.phone,
     required this.address,
+    required this.email,
     DateTime? dateTime,
   }) : dateTime = dateTime ?? DateTime.now();
-Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'amount': amount,
       //'products': products,
       'full_name': full_name,
       'address': address,
-      'phone': phone
+      'phone': phone,
+      'email': email
     };
   }
+
   static OrderItem fromJson(Map<String, dynamic> json) {
     return OrderItem(
         id: json['id'],
         amount: json['amount'],
-       products: json['products'],
+        products: json['products'],
         full_name: json['full_name'],
         phone: json['phone'],
+        email: json['email'],
         address: json['address']);
   }
 
@@ -51,6 +56,7 @@ Map<String, dynamic> toJson() {
     String? full_name,
     String? phone,
     String? address,
+    String? email,
   }) {
     return OrderItem(
         id: id ?? this.id,
@@ -58,6 +64,7 @@ Map<String, dynamic> toJson() {
         products: products ?? this.products,
         phone: phone ?? this.phone,
         full_name: full_name ?? this.full_name,
+        email: email ?? this.email,
         address: address ?? this.address,
         dateTime: dateTime ?? this.dateTime);
   }
